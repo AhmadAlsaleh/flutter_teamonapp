@@ -10,6 +10,7 @@ class AppConstants {
   static const String workSessionsEndpoint = '/workSessions';
   static const String workStepsEndpoint = '/workSteps';
 
+  static const String addFCMTokenEndpoint = '/fcm/add-token';
   static const String notificationsEndpoint = '/fcm/get-notifications';
   static const String readNotificationEndpoint = '/fcm/read-notification';
 }

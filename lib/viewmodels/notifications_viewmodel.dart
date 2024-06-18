@@ -7,7 +7,9 @@ import 'package:flutter_teamonapp/viewmodels/auth_viewmodel.dart';
 final notificationsViewModelProvider = StateNotifierProvider<
     NotificationNotifier, AsyncValue<List<NotificationModel>>>(
   (ref) => NotificationNotifier(
-      ref.read(apiServiceProvider), ref.watch(authViewModelProvider)),
+    ref.read(apiServiceProvider),
+    ref.watch(authViewModelProvider),
+  ),
 );
 
 class NotificationNotifier
@@ -21,14 +23,16 @@ class NotificationNotifier
   }
 
   void fetchData() async {
-    var authModel = authModelAsync.value;
-
-    state = const AsyncValue.loading();
     try {
+      var authModel = authModelAsync.valueOrNull;
+      if (authModel == null) return;
+      state = const AsyncValue.loading();
       var notifications = await _apiService.getNotifications(
-        token: authModel?.token,
-        userId: authModel?.userId,
+        token: authModel.token,
+        userId: authModel.userId,
       );
+
+      notifications.sort((a, b) => b.id.compareTo(a.id));
       state = AsyncValue.data(notifications);
     } catch (e, s) {
       state = AsyncValue.error(e, s);

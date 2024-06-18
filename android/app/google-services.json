@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "627383469224",
+    "project_id": "team-on-app",
+    "storage_bucket": "team-on-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:627383469224:android:118a671162f38bf2b56e9d",
+        "android_client_info": {
+          "package_name": "com.ahmadalsaleh.flutter_teamonapp"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdbikcEQgvfQwO1tl7hrqGAsimzk2B77o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

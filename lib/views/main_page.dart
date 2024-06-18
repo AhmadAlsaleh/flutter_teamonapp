@@ -31,7 +31,8 @@ class MainPage extends ConsumerWidget {
       backgroundColor: AppColors.WHITE,
       body: _pages[selectedPageIndex],
       floatingActionButtonLocation: ExpandableFab.location,
-      floatingActionButton: selectedPageIndex == 0
+      floatingActionButton: (selectedPageIndex == 0 &&
+              selectedDate.getDate() == DateTime.now().getDate())
           ? sessionsAsync.when(
               data: (data) {
                 var session = data.firstOrNull;

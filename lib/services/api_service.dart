@@ -29,10 +29,27 @@ class ApiService {
     return AuthModel.fromJson(response);
   }
 
-  Future<bool> logout(String? token) async {
-    var response =
-        await _networkService.get(AppConstants.logoutEndpoint, token: token);
-    return response['code'] == 200;
+  Future<bool> addFCMToken(int? userId, String? fcmToken,
+      {String? token}) async {
+    final response = await _networkService.post(
+      AppConstants.addFCMTokenEndpoint,
+      {
+        'userId': userId,
+        'token': fcmToken,
+      },
+      token: token,
+    );
+    return response["code"] == 200;
+  }
+
+  Future<bool> logout({int? id, String? token}) async {
+    try {
+      var response = await _networkService
+          .get("${AppConstants.logoutEndpoint}/$id", token: token);
+      return response['code'] == 200;
+    } catch (e) {
+      return false;
+    }
   }
 
   Future<UserModel?> getUser(int id, {String? token}) async {

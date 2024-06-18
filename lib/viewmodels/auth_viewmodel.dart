@@ -1,16 +1,23 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/models/auth_model.dart';
 import 'package:flutter_teamonapp/services/api_service.dart';
+import 'package:flutter_teamonapp/services/firebase/push_notifications.dart';
 import 'package:flutter_teamonapp/utils/storage_helper.dart';
 
 final authViewModelProvider =
-    StateNotifierProvider<AuthNotifier, AsyncValue<AuthModel?>>(
-        (ref) => AuthNotifier(ref.read(apiServiceProvider)));
+    StateNotifierProvider<AuthNotifier, AsyncValue<AuthModel?>>((ref) {
+  return AuthNotifier(
+    ref.read(apiServiceProvider),
+    ref.read(fcmProvider),
+  );
+});
 
 class AuthNotifier extends StateNotifier<AsyncValue<AuthModel?>> {
   final ApiService _apiService;
+  final PushNotificationService _pushNotificationService;
 
-  AuthNotifier(this._apiService) : super(const AsyncData(null)) {
+  AuthNotifier(this._apiService, this._pushNotificationService)
+      : super(const AsyncData(null)) {
     loadAuthModel();
   }
 
@@ -33,6 +40,20 @@ class AuthNotifier extends StateNotifier<AsyncValue<AuthModel?>> {
     }
   }
 
+  Future<bool> addFCMToken() async {
+    try {
+      var fcm = await _pushNotificationService.getFCMToken();
+      var result = await _apiService.addFCMToken(
+        state.value?.userId,
+        fcm,
+        token: state.value?.token,
+      );
+      return result;
+    } catch (e) {
+      return false;
+    }
+  }
+
   void login(String username, String password) async {
     try {
       state = const AsyncValue.loading();
@@ -40,17 +61,19 @@ class AuthNotifier extends StateNotifier<AsyncValue<AuthModel?>> {
 
       state = AsyncValue.data(result);
       await StorageHelper.saveAuthModel(result);
+      await addFCMToken();
     } catch (e, s) {
       state = AsyncValue.error(e, s);
     }
   }
 
   void logout() async {
+    var userId = state.value?.userId;
+    var token = state.value?.token;
+
     state = const AsyncValue.loading();
-    var isLoggedOut = await _apiService.logout(state.value?.token);
-    if (isLoggedOut) {
-      await StorageHelper.removeAuthModel();
-      state = const AsyncValue.data(null);
-    }
+    await StorageHelper.removeAuthModel();
+    await _apiService.logout(id: userId, token: token);
+    state = const AsyncValue.data(null);
   }
 }

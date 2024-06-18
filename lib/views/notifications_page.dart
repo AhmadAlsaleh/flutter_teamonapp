@@ -1,4 +1,4 @@
-import 'package:custom_refresh_indicator/custom_refresh_indicator.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
@@ -20,25 +20,32 @@ class NotificationsPage extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Notifications",
-                style: Theme.of(context).textTheme.titleLarge),
+            Row(
+              children: [
+                Expanded(
+                  child: Text("Notifications",
+                      style: Theme.of(context).textTheme.titleLarge),
+                ),
+                IconButton(
+                  icon: const Icon(CupertinoIcons.refresh),
+                  onPressed: () {
+                    ref
+                        .read(notificationsViewModelProvider.notifier)
+                        .fetchData();
+                  },
+                )
+              ],
+            ),
             const SizedBox(height: AppDimens.MAIN_SPACE),
             Expanded(
               child: notificationsAsync.when(
                 data: (data) => data.isEmpty
                     ? const MessageWidget(message: "No Notifications!")
-                    : CustomMaterialIndicator(
-                        indicatorBuilder: (context, controller) =>
-                            const LoadingWidget(),
-                        onRefresh: () async => ref
-                            .watch(notificationsViewModelProvider.notifier)
-                            .fetchData(),
-                        child: ListView(
-                          children: data
-                              .map((notification) => NotificationWidget(
-                                  notification: notification))
-                              .toList(),
-                        ),
+                    : ListView(
+                        children: data
+                            .map((notification) =>
+                                NotificationWidget(notification: notification))
+                            .toList(),
                       ),
                 error: (e, s) => const MessageWidget(),
                 loading: () => const LoadingWidget(),

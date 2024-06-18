@@ -31,13 +31,15 @@ class WorkSessionNotifier
   }
 
   void fetchData() async {
-    var authModel = authModelAsync.value;
-
-    state = const AsyncValue.loading();
     try {
+      var authModel = authModelAsync.valueOrNull;
+      if (authModel == null) {
+        return;
+      }
+      state = const AsyncValue.loading();
       var sessions = await _apiService.getWorkSessions(
-        token: authModel?.token,
-        userId: authModel?.userId,
+        token: authModel.token,
+        userId: authModel.userId,
         dateTime: selectedDate,
       );
       state = AsyncValue.data(sessions);
