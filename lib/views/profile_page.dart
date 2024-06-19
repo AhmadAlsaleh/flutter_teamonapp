@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
+import 'package:flutter_teamonapp/routes/app_routes.dart';
 import 'package:flutter_teamonapp/viewmodels/user_viewmodel.dart';
 import 'package:flutter_teamonapp/widgets/loading.dart';
 import 'package:flutter_teamonapp/widgets/logout.dart';
+import 'package:flutter_teamonapp/widgets/message.dart';
+import 'package:flutter_teamonapp/widgets/admin/profile_admin_widget.dart';
 
 class ProfilePage extends ConsumerWidget {
   const ProfilePage({super.key});
@@ -21,7 +24,7 @@ class ProfilePage extends ConsumerWidget {
         child: SafeArea(
           child: userModelAsync.when(
               data: (data) => data == null
-                  ? _wrongData()
+                  ? const MessageWidget()
                   : Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
@@ -30,6 +33,8 @@ class ProfilePage extends ConsumerWidget {
                         Text(data.fullName,
                             style: Theme.of(context).textTheme.displayLarge),
                         const SizedBox(height: AppDimens.MAIN_SPACE * 2),
+                        if (data.role == 'admin') const ProfileAdminWidget(),
+                        const SizedBox(height: AppDimens.MAIN_SPACE),
                         Card(
                           child: Column(
                             children:
@@ -43,14 +48,10 @@ class ProfilePage extends ConsumerWidget {
                         const Card(child: LogoutWidget()),
                       ],
                     ),
-              error: (e, s) => _wrongData(),
+              error: (e, s) => const MessageWidget(),
               loading: () => const LoadingWidget()),
         ),
       ),
     );
   }
-
-  Widget _wrongData() => const Center(
-        child: Text("Somwthing went wrong"),
-      );
 }
