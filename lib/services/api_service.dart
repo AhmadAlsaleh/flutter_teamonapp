@@ -62,10 +62,11 @@ class ApiService {
 
   Future<List<NotificationModel>> getNotifications(
       {String? token, int? userId}) async {
-    final response = await _networkService
-        .get("${AppConstants.notificationsEndpoint}/$userId", token: token);
+    final response = await _networkService.get(
+        "${AppConstants.receivedNotificationsEndpoint}/$userId",
+        token: token);
 
-    return notificationFromJson(jsonEncode(response["notifications"]));
+    return notificationModelFromJson(jsonEncode(response["notifications"]));
   }
 
   Future<bool> readNotification(String? token, int? userId, int? id) async {

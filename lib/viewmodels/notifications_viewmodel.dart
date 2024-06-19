@@ -1,6 +1,7 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/models/auth_model.dart';
 import 'package:flutter_teamonapp/models/notification_model.dart';
+import 'package:flutter_teamonapp/models/notification_receiver_model.dart';
 import 'package:flutter_teamonapp/services/api_service.dart';
 import 'package:flutter_teamonapp/viewmodels/auth_viewmodel.dart';
 
@@ -39,13 +40,13 @@ class NotificationNotifier
     }
   }
 
-  void read(NotificationModel notification) async {
+  void read(NotificationReceiver notificationReceiver) async {
     try {
       state = const AsyncValue.loading();
 
       var token = authModelAsync.value?.token;
       await _apiService.readNotification(
-          token, notification.userId, notification.id);
+          token, notificationReceiver.userId, notificationReceiver.id);
       fetchData();
     } catch (e, s) {
       state = AsyncValue.error(e, s);

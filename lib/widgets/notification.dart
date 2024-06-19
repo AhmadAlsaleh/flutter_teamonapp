@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_colors.dart';
@@ -16,30 +17,45 @@ class NotificationWidget extends ConsumerWidget {
     ref.read(notificationsViewModelProvider);
 
     return Card(
-      color: notification.status == NotificationModel.READ
-          ? AppColors.WHITE
-          : null,
-      child: ListTile(
-        onTap: () => (notification.status == NotificationModel.UNREAD)
-            ? ref
-                .read(notificationsViewModelProvider.notifier)
-                .read(notification)
+        color: notification.receiver?.status == NotificationModel.READ
+            ? AppColors.WHITE
             : null,
-        contentPadding: const EdgeInsets.all(AppDimens.MAIN_SPACE),
-        title: Row(
-          crossAxisAlignment: CrossAxisAlignment.start,
+        child: ExpansionTile(
+          tilePadding:
+              const EdgeInsets.only(left: 0.0, right: AppDimens.MAIN_SPACE),
+          leading: IconButton(
+              onPressed: () =>
+                  (notification.receiver?.status == NotificationModel.UNREAD)
+                      ? ref
+                          .read(notificationsViewModelProvider.notifier)
+                          .read(notification.receiver!)
+                      : null,
+              icon: notification.receiver?.status == NotificationModel.UNREAD
+                  ? const Icon(CupertinoIcons.circle)
+                  : const Icon(CupertinoIcons.checkmark_circle_fill)),
+          shape: Border.all(color: Colors.transparent),
+          title: Text(notification.title),
+          subtitle: Text(
+            notification.createdAt.getDateTime(),
+            style: Theme.of(context)
+                .textTheme
+                .bodySmall
+                ?.copyWith(color: Colors.grey),
+          ),
+          childrenPadding: const EdgeInsets.all(AppDimens.MAIN_SPACE),
+          expandedAlignment: Alignment.centerLeft,
+          expandedCrossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Expanded(child: Text(notification.title)),
-            const SizedBox(width: AppDimens.MAIN_SPACE / 2),
+            Text(notification.body),
+            const SizedBox(height: AppDimens.MAIN_SPACE / 2),
             Text(
-              "${notification.createdAt.toLocal().getDate()}\n${notification.createdAt.toLocal().getTime()}",
-              textAlign: TextAlign.end,
-              style: const TextStyle(fontSize: 14),
+              "Sent by ${notification.sender.fullName}",
+              style: Theme.of(context)
+                  .textTheme
+                  .bodySmall
+                  ?.copyWith(color: Colors.grey),
             ),
           ],
-        ),
-        subtitle: Text(notification.body),
-      ),
-    );
+        ));
   }
 }
