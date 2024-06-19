@@ -1,3 +1,8 @@
+import 'dart:convert';
+
+List<UserModel> usersFromJson(String str) =>
+    List<UserModel>.from(json.decode(str).map((x) => UserModel.fromJson(x)));
+
 class UserModel {
   final int id;
   final String fullName;
@@ -5,6 +10,7 @@ class UserModel {
   final String email;
   final String role;
   final String profession;
+  final bool isActive;
 
   UserModel({
     required this.id,
@@ -13,6 +19,7 @@ class UserModel {
     required this.email,
     required this.role,
     required this.profession,
+    required this.isActive,
   });
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
@@ -22,6 +29,7 @@ class UserModel {
         email: json['email'],
         role: json['role'],
         profession: json['profession'],
+        isActive: json['isActive'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -31,5 +39,26 @@ class UserModel {
         "email": email,
         "role": role,
         "profession": profession,
+        "isActive": isActive,
       };
+
+  UserModel copyWith({
+    int? id,
+    String? fullName,
+    String? username,
+    String? email,
+    String? role,
+    String? profession,
+    bool? isActive,
+  }) {
+    return UserModel(
+      id: id ?? this.id,
+      fullName: fullName ?? this.fullName,
+      username: username ?? this.username,
+      email: email ?? this.email,
+      role: role ?? this.role,
+      profession: profession ?? this.profession,
+      isActive: isActive ?? this.isActive,
+    );
+  }
 }

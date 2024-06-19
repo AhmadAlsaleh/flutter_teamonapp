@@ -7,9 +7,6 @@ List<NotificationModel> notificationModelFromJson(String str) =>
     List<NotificationModel>.from(
         json.decode(str).map((x) => NotificationModel.fromJson(x)));
 
-String notificationModelToJson(List<NotificationModel> data) =>
-    json.encode(List<dynamic>.from(data.map((x) => x.toJson())));
-
 class NotificationModel {
   int id;
   String title;

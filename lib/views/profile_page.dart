@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
-import 'package:flutter_teamonapp/routes/app_routes.dart';
 import 'package:flutter_teamonapp/viewmodels/user_viewmodel.dart';
 import 'package:flutter_teamonapp/widgets/loading.dart';
 import 'package:flutter_teamonapp/widgets/logout.dart';

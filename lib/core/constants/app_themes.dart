@@ -62,6 +62,10 @@ ThemeData appTheme(BuildContext context) => ThemeData(
           textStyle: const TextStyle(fontSize: 16.0),
         ),
       ),
+      floatingActionButtonTheme: const FloatingActionButtonThemeData(
+        backgroundColor: AppColors.PRIMARY_DARK,
+        foregroundColor: AppColors.WHITE,
+      ),
       inputDecorationTheme: InputDecorationTheme(
         focusColor: AppColors.SECONDARY,
         border: OutlineInputBorder(

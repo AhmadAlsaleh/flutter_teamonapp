@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_constants.dart';
 import 'package:flutter_teamonapp/core/extensions/date_time_ext.dart';
+import 'package:flutter_teamonapp/models/add_user_model.dart';
 import 'package:flutter_teamonapp/models/auth_model.dart';
 import 'package:flutter_teamonapp/models/notification_model.dart';
 import 'package:flutter_teamonapp/models/user_model.dart';
@@ -49,6 +50,56 @@ class ApiService {
       return response['code'] == 200;
     } catch (e) {
       return false;
+    }
+  }
+
+  Future<List<UserModel>> getUsers({String? token}) async {
+    final response = await _networkService.get(
+      AppConstants.usersEndpoint,
+      token: token,
+    );
+    return usersFromJson(jsonEncode(response["users"]));
+  }
+
+  Future<bool> deleteUser(int id, {String? token}) async {
+    final response = await _networkService.delete(
+      "${AppConstants.usersEndpoint}/$id",
+      token: token,
+    );
+
+    return response["code"] == 200;
+  }
+
+  Future<UserModel?> addUser(AddUserModel model, {String? token}) async {
+    try {
+      final response = await _networkService.post(
+        AppConstants.usersEndpoint,
+        model.toJson(),
+        token: token,
+      );
+
+      return UserModel.fromJson(response);
+    } catch (e) {
+      return null;
+    }
+  }
+
+  Future<UserModel?> updateUser(UserModel model, {String? token}) async {
+    try {
+      final response = await _networkService.put(
+        "${AppConstants.usersEndpoint}/${model.id}",
+        {
+          "fullName": model.fullName,
+          "role": model.role,
+          "profession": model.profession,
+          "isActive": model.isActive,
+        },
+        token: token,
+      );
+
+      return UserModel.fromJson(response);
+    } catch (e) {
+      return null;
     }
   }
 
