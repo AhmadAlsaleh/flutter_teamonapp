@@ -14,7 +14,6 @@ class AddUserModel {
   });
 
   Map<String, dynamic> toJson() => {
-        "username": email,
         "fullName": fullName,
         "email": email,
         "password": password,

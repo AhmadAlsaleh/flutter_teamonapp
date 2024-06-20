@@ -54,10 +54,10 @@ class AuthNotifier extends StateNotifier<AsyncValue<AuthModel?>> {
     }
   }
 
-  void login(String username, String password) async {
+  void login(String email, String password) async {
     try {
       state = const AsyncValue.loading();
-      var result = await _apiService.login(username, password);
+      var result = await _apiService.login(email, password);
 
       state = AsyncValue.data(result);
       await StorageHelper.saveAuthModel(result);

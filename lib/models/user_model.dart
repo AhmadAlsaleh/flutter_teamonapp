@@ -6,7 +6,6 @@ List<UserModel> usersFromJson(String str) =>
 class UserModel {
   final int id;
   final String fullName;
-  final String username;
   final String email;
   final String role;
   final String profession;
@@ -15,7 +14,6 @@ class UserModel {
   UserModel({
     required this.id,
     required this.fullName,
-    required this.username,
     required this.email,
     required this.role,
     required this.profession,
@@ -25,7 +23,6 @@ class UserModel {
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json['id'],
         fullName: json['fullName'],
-        username: json['username'],
         email: json['email'],
         role: json['role'],
         profession: json['profession'],
@@ -34,7 +31,6 @@ class UserModel {
 
   Map<String, dynamic> toJson() => {
         "id": id,
-        "username": username,
         "fullName": fullName,
         "email": email,
         "role": role,
@@ -45,7 +41,6 @@ class UserModel {
   UserModel copyWith({
     int? id,
     String? fullName,
-    String? username,
     String? email,
     String? role,
     String? profession,
@@ -54,7 +49,6 @@ class UserModel {
     return UserModel(
       id: id ?? this.id,
       fullName: fullName ?? this.fullName,
-      username: username ?? this.username,
       email: email ?? this.email,
       role: role ?? this.role,
       profession: profession ?? this.profession,

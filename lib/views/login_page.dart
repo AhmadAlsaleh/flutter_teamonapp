@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_colors.dart';
@@ -8,7 +9,7 @@ class LoginPage extends ConsumerWidget {
   LoginPage({super.key});
 
   final _formKey = GlobalKey<FormState>();
-  final usernameController = TextEditingController();
+  final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   @override
@@ -43,13 +44,14 @@ class LoginPage extends ConsumerWidget {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       TextFormField(
-                        controller: usernameController,
+                        controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
-                        decoration: const InputDecoration(hintText: 'Username'),
-                        validator: (value) => value == null || value.isEmpty
-                            ? 'Please enter a valid username'
-                            : null,
+                        decoration: const InputDecoration(hintText: 'Email'),
+                        validator: (value) =>
+                            (!EmailValidator.validate(value ?? ''))
+                                ? 'Please enter a valid email'
+                                : null,
                       ),
                       const SizedBox(height: AppDimens.MAIN_SPACE),
                       TextFormField(
@@ -59,11 +61,6 @@ class LoginPage extends ConsumerWidget {
                         validator: (value) => value == null || value.isEmpty
                             ? 'Please enter a valid password'
                             : null,
-                      ),
-                      const SizedBox(height: AppDimens.MAIN_SPACE),
-                      TextButton(
-                        onPressed: () => showForgetPasswordBottomSheet(context),
-                        child: const Text('Forgot Password?'),
                       ),
                     ],
                   ),
@@ -75,11 +72,11 @@ class LoginPage extends ConsumerWidget {
                     ElevatedButton.icon(
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {
-                          final username = usernameController.text.trim();
+                          final email = emailController.text.trim();
                           final password = passwordController.text.trim();
 
                           ref.read(authViewModelProvider.notifier).login(
-                                username,
+                                email,
                                 password,
                               );
                         }
@@ -99,13 +96,5 @@ class LoginPage extends ConsumerWidget {
         ),
       ),
     );
-  }
-
-  void showForgetPasswordBottomSheet(BuildContext context) {
-    /**
-     * todo
-     * implementation forget and reset password
-     * create bottom sheet
-     */
   }
 }

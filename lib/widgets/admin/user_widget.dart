@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
 import 'package:flutter_teamonapp/models/user_model.dart';
 import 'package:flutter_teamonapp/viewmodels/admin/users_viewmodel.dart';
+import 'package:flutter_teamonapp/viewmodels/auth_viewmodel.dart';
 import 'package:flutter_teamonapp/views/admin/edit_employee_page.dart';
 
 class UserWidget extends ConsumerWidget {
@@ -13,6 +14,10 @@ class UserWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
+    var auth = ref.watch(authViewModelProvider);
+    var user = auth.value;
+    if (user == null) return Container();
+
     return Card(
       child: ExpansionTile(
         leading: userModel.isActive
@@ -51,12 +56,13 @@ class UserWidget extends ConsumerWidget {
                 icon: const Icon(CupertinoIcons.pen),
                 label: const Text("Edit"),
               ),
-              TextButton.icon(
-                onPressed: () =>
-                    ref.read(usersProvider.notifier).deleteUser(userModel.id),
-                icon: const Icon(CupertinoIcons.delete),
-                label: const Text("Delete"),
-              ),
+              if (user.userId != userModel.id)
+                TextButton.icon(
+                  onPressed: () =>
+                      ref.read(usersProvider.notifier).deleteUser(userModel.id),
+                  icon: const Icon(CupertinoIcons.delete),
+                  label: const Text("Delete"),
+                ),
             ],
           )
         ],

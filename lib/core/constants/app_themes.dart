@@ -30,9 +30,8 @@ ThemeData appTheme(BuildContext context) => ThemeData(
           color: AppColors.SECONDARY,
         ),
         titleMedium: TextStyle(fontSize: 20.0, fontWeight: FontWeight.normal),
-        bodyLarge:
-            TextStyle(fontSize: 22.0, color: AppColors.SECONDARY, height: 0),
-        bodyMedium: TextStyle(fontSize: 18.0, color: Colors.black, height: 0),
+        bodyLarge: TextStyle(fontSize: 22.0, color: AppColors.SECONDARY),
+        bodyMedium: TextStyle(fontSize: 18.0, color: Colors.black),
         bodySmall: TextStyle(fontSize: 16.0, color: Colors.black),
       ),
       elevatedButtonTheme: ElevatedButtonThemeData(

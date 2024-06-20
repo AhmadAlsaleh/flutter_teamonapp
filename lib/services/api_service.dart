@@ -1,11 +1,13 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_constants.dart';
 import 'package:flutter_teamonapp/core/extensions/date_time_ext.dart';
 import 'package:flutter_teamonapp/models/add_user_model.dart';
 import 'package:flutter_teamonapp/models/auth_model.dart';
 import 'package:flutter_teamonapp/models/notification_model.dart';
+import 'package:flutter_teamonapp/models/push_notification_model.dart';
 import 'package:flutter_teamonapp/models/user_model.dart';
 import 'package:flutter_teamonapp/models/work_session_model.dart';
 import 'package:flutter_teamonapp/models/work_step_model.dart';
@@ -22,9 +24,9 @@ class ApiService {
     return response['code'] == 200;
   }
 
-  Future<AuthModel> login(String username, String password) async {
+  Future<AuthModel> login(String email, String password) async {
     final response = await _networkService.post(AppConstants.loginEndpoint, {
-      'username': username,
+      'email': email,
       'password': password,
     });
     return AuthModel.fromJson(response);
@@ -111,6 +113,15 @@ class ApiService {
     return UserModel.fromJson(response);
   }
 
+  Future<bool> pushNotifications(PushNotificationModel model,
+      {String? token}) async {
+    final response = await _networkService.post(
+        AppConstants.sendNotificationsEndpoint, model.toJson(),
+        token: token);
+
+    return response["code"] == 200;
+  }
+
   Future<List<NotificationModel>> getSentNotifications(
       {String? token, int? userId}) async {
     final response = await _networkService
@@ -141,6 +152,18 @@ class ApiService {
     return response["code"] == 200;
   }
 
+  Future<List<WorkSessionModel>> getAdminWorkSessions(
+      {String? token, required DateTimeRange dateRange}) async {
+    final response = await _networkService.post(
+        AppConstants.filterWorkSessionsEndpoint,
+        {
+          "start_date": dateRange.start.toUtc().getDate(),
+          "end_date": dateRange.end.toUtc().getDate(),
+        },
+        token: token);
+    return workSessionFromJson(jsonEncode(response["workSessions"]));
+  }
+
   Future<List<WorkSessionModel>> getWorkSessions(
       {String? token, int? userId, DateTime? dateTime}) async {
     final response = await _networkService
@@ -148,7 +171,6 @@ class ApiService {
       "userId": userId,
       "date": dateTime?.getYYYYMMDD(),
     });
-
     return workSessionFromJson(jsonEncode(response["workSessions"]));
   }
 
@@ -172,7 +194,7 @@ class ApiService {
       AppConstants.workStepsEndpoint,
       {
         "workSessionId": stepModel.workSessionId,
-        "dateTime": stepModel.dateTime.toIso8601String(),
+        "dateTime": stepModel.dateTime.toUtc().toIso8601String(),
         "type": stepModel.type,
         "latitude": 0.0,
         "longitude": 0.0,

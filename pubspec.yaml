@@ -49,6 +49,8 @@ dependencies:
   flutter_local_notifications: ^13.0.0
   tuple: ^2.0.2
   timeago: ^3.6.1
+  email_validator: ^2.1.17
+  fl_chart: ^0.68.0
 
 dev_dependencies:
   flutter_test:

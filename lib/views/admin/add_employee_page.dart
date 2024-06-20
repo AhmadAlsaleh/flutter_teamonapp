@@ -1,3 +1,4 @@
+import 'package:email_validator/email_validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_colors.dart';
@@ -125,9 +126,10 @@ class _AddEmployeePageState extends ConsumerState<AddEmployeePage> {
                             fillColor: AppColors.WHITE,
                             filled: true,
                           ),
-                          validator: (value) => value == null || value.isEmpty
-                              ? 'Please enter a valid email'
-                              : null,
+                          validator: (value) =>
+                              (!EmailValidator.validate(value ?? ''))
+                                  ? 'Please enter a valid email'
+                                  : null,
                         ),
                         const SizedBox(height: AppDimens.MAIN_SPACE),
                         TextFormField(

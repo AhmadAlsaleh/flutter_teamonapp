@@ -14,14 +14,14 @@ class WorkStepModel {
   factory WorkStepModel.fromJson(Map<String, dynamic> json) => WorkStepModel(
         id: json["id"],
         workSessionId: json["workSessionId"],
-        dateTime: DateTime.parse(json["dateTime"]),
+        dateTime: DateTime.parse(json["dateTime"]).toLocal(),
         type: json["type"],
       );
 
   Map<String, dynamic> toJson() => {
         "id": id,
         "workSessionId": workSessionId,
-        "dateTime": dateTime.toIso8601String(),
+        "dateTime": dateTime.toUtc().toIso8601String(),
         "type": type,
       };
 }

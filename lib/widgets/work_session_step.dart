@@ -57,7 +57,7 @@ class WorkSessionStep extends StatelessWidget {
       child: ListTile(
         leading: _icon,
         title: Text(_title),
-        subtitle: Text(step.dateTime.toLocal().getTime()),
+        subtitle: Text(step.dateTime.getTime()),
       ),
     );
   }

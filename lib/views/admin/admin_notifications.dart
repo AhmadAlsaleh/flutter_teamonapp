@@ -49,23 +49,19 @@ class AdminNotifications extends ConsumerWidget {
       ),
       body: Container(
         padding: const EdgeInsets.all(AppDimens.MAIN_SPACE),
-        child: Column(
-          children: [
-            notifications.when(
-                data: (data) => data.isEmpty
-                    ? const MessageWidget(message: "No Data")
-                    : Expanded(
-                        child: ListView(
-                          children: data
-                              .map((notification) => SentNotificationWidget(
-                                  notification: notification))
-                              .toList(),
-                        ),
-                      ),
-                error: (e, s) => const Expanded(child: MessageWidget()),
-                loading: () => const LoadingWidget()),
-          ],
-        ),
+        child: notifications.when(
+            data: (data) => data.isEmpty
+                ? const Center(child: MessageWidget(message: "No Data"))
+                : Expanded(
+                    child: ListView(
+                      children: data
+                          .map((notification) => SentNotificationWidget(
+                              notification: notification))
+                          .toList(),
+                    ),
+                  ),
+            error: (e, s) => const Center(child: MessageWidget()),
+            loading: () => const LoadingWidget()),
       ),
     );
   }
