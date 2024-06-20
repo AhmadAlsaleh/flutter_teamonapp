@@ -12,6 +12,7 @@ class AppConstants {
 
   static const String addFCMTokenEndpoint = '/fcm/add-token';
   static const String receivedNotificationsEndpoint = '/notifications/received';
+  static const String sentNotificationsEndpoint = '/notifications/sent';
   static const String readNotificationEndpoint =
       '/notifications/read-notification';
 }

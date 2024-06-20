@@ -2,9 +2,9 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
-import 'package:flutter_teamonapp/core/extensions/date_time_ext.dart';
 import 'package:flutter_teamonapp/models/notification_model.dart';
 import 'package:flutter_teamonapp/viewmodels/notifications_viewmodel.dart';
+import 'package:timeago/timeago.dart' as timeago;
 
 class NotificationWidget extends ConsumerWidget {
   const NotificationWidget({super.key, required this.notification});
@@ -13,8 +13,6 @@ class NotificationWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    ref.read(notificationsViewModelProvider);
-
     return Card(
         child: ExpansionTile(
       tilePadding:
@@ -32,7 +30,7 @@ class NotificationWidget extends ConsumerWidget {
       shape: Border.all(color: Colors.transparent),
       title: Text(notification.title),
       subtitle: Text(
-        notification.createdAt.getDateTime(),
+        timeago.format(notification.createdAt.toLocal()),
         style:
             Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
       ),

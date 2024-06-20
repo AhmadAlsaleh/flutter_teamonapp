@@ -47,7 +47,10 @@ class NotificationsPage extends ConsumerWidget {
                                 NotificationWidget(notification: notification))
                             .toList(),
                       ),
-                error: (e, s) => const MessageWidget(),
+                error: (e, s) {
+                  print(e);
+                  return const MessageWidget();
+                },
                 loading: () => const LoadingWidget(),
               ),
             ),

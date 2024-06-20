@@ -1,10 +1,10 @@
 import 'package:intl/intl.dart';
 
 extension DateTimeExtensions on DateTime {
-  String getYYYYMMDD() => DateFormat("yyyy-MM-dd").format(this);
-  String getDate() => DateFormat("dd MMMM yyyy").format(this);
-  String getDay() => DateFormat("EEEE").format(this);
-  String getDateWithDay() => DateFormat("EEEE dd MMM. yyyy").format(this);
-  String getTime() => DateFormat("hh:mm a").format(this);
-  String getDateTime() => DateFormat("yy-MM-dd hh:mm a").format(this);
+  String getYYYYMMDD() => DateFormat("yyyy-MM-dd").format(toLocal());
+  String getDate() => DateFormat("dd MMMM yyyy").format(toLocal());
+  String getDay() => DateFormat("EEEE").format(toLocal());
+  String getDateWithDay() => DateFormat("EEEE dd MMM. yyyy").format(toLocal());
+  String getTime() => DateFormat("hh:mm a").format(toLocal());
+  String getDateTime() => DateFormat("yy-MM-dd hh:mm a").format(toLocal());
 }
