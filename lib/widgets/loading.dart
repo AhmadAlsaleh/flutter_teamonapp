@@ -11,7 +11,7 @@ class LoadingWidget extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(AppDimens.MAIN_SPACE),
         child: const CupertinoActivityIndicator(
-          color: AppColors.SECONDARY,
+          color: AppColors.PRIMARY,
         ),
       ),
     );

@@ -1,10 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
 import 'package:flutter_teamonapp/viewmodels/notifications_viewmodel.dart';
-import 'package:flutter_teamonapp/widgets/loading.dart';
 import 'package:flutter_teamonapp/widgets/message.dart';
+import 'package:flutter_teamonapp/widgets/my_refresh_indicator.dart';
 import 'package:flutter_teamonapp/widgets/notification.dart';
 
 class NotificationsPage extends ConsumerWidget {
@@ -14,45 +13,40 @@ class NotificationsPage extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     var notificationsAsync = ref.watch(notificationsViewModelProvider);
 
-    return Padding(
-      padding: const EdgeInsets.all(AppDimens.MAIN_SPACE),
-      child: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Expanded(
-                  child: Text("Notifications",
-                      style: Theme.of(context).textTheme.titleLarge),
-                ),
-                IconButton(
-                  icon: const Icon(CupertinoIcons.refresh),
-                  onPressed: () {
-                    ref
-                        .read(notificationsViewModelProvider.notifier)
-                        .fetchData();
-                  },
-                )
-              ],
-            ),
-            const SizedBox(height: AppDimens.MAIN_SPACE),
-            Expanded(
-              child: notificationsAsync.when(
-                data: (data) => data.isEmpty
-                    ? const MessageWidget(message: "No Notifications!")
-                    : ListView(
-                        children: data
-                            .map((notification) =>
-                                NotificationWidget(notification: notification))
-                            .toList(),
+    var data = notificationsAsync.valueOrNull ?? [];
+    var isError = notificationsAsync.hasError;
+    var isData = notificationsAsync.hasValue;
+
+    return SafeArea(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(AppDimens.MAIN_SPACE),
+            child: Text("Notifications",
+                style: Theme.of(context).textTheme.titleLarge),
+          ),
+          if (isError) const Expanded(child: MessageWidget()),
+          Expanded(
+            child: MyRefreshIndicator(
+              action: () =>
+                  ref.read(notificationsViewModelProvider.notifier).fetchData(),
+              child: ListView(
+                  physics: const AlwaysScrollableScrollPhysics(),
+                  children: [
+                    if (isData && data.isEmpty)
+                      MessageWidget(
+                        message: "No Notifications!",
+                        height: AppDimens.screenHeight(context) - 115,
                       ),
-                error: (e, s) => const MessageWidget(),
-                loading: () => const LoadingWidget(),
-              ),
+                    ...ListTile.divideTiles(
+                        context: context,
+                        tiles: data.map((notification) =>
+                            NotificationWidget(notification: notification)))
+                  ]),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -23,7 +23,7 @@ class SentNotificationNotifier
     fetchData();
   }
 
-  void fetchData() async {
+  Future<void> fetchData() async {
     try {
       var authModel = authModelAsync.valueOrNull;
       if (authModel == null) return;

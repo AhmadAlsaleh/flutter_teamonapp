@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_teamonapp/core/constants/app_colors.dart';
 import 'package:flutter_teamonapp/viewmodels/auth_viewmodel.dart';
 import 'package:flutter_teamonapp/views/login_page.dart';
 import 'package:flutter_teamonapp/views/main_page.dart';
@@ -14,7 +15,8 @@ class SplashPage extends ConsumerWidget {
     return authViewModel.when(
       data: (data) => data == null ? LoginPage() : MainPage(),
       error: (e, s) => LoginPage(),
-      loading: () => const Scaffold(body: LoadingWidget()),
+      loading: () => const Scaffold(
+          backgroundColor: AppColors.WHITE, body: LoadingWidget()),
     );
   }
 }

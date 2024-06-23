@@ -28,9 +28,10 @@ class LoginPage extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     const SizedBox(height: AppDimens.MAIN_SPACE * 2),
-                    Text("Hi There!",
+                    Text("Soft-Park!",
                         style: Theme.of(context).textTheme.titleLarge),
                     const SizedBox(height: AppDimens.MAIN_SPACE),
                     Text("Team\nON".toUpperCase(),

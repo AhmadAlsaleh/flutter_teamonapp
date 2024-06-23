@@ -4,13 +4,16 @@ import 'package:flutter/material.dart';
 
 class AppDimens {
   static const double BORDER_RADUIS = 12.0;
-  static const double MAIN_SPACE = 16.0;
+  static const double MAIN_SPACE = 14.0;
 
   static double screenHeight(BuildContext context) {
-    final appBarHeight = AppBar().preferredSize.height;
+    const appBarHeight = kToolbarHeight;
     const bottomAppBarHeight = 60;
 
     final screenHeight = MediaQuery.of(context).size.height;
-    return screenHeight - appBarHeight - bottomAppBarHeight;
+    return screenHeight -
+        appBarHeight -
+        bottomAppBarHeight -
+        AppDimens.MAIN_SPACE;
   }
 }

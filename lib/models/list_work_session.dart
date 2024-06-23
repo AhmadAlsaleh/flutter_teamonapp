@@ -8,9 +8,12 @@ class ListWorkSession {
 
   List<UserModel> getUsers() {
     var users = workSessions.map((session) => session.user).toList();
-    return users
-        .where((user) => users.indexOf(user) == users.lastIndexOf(user))
-        .toList();
+    return users.fold(
+        [],
+        (previous, current) =>
+            previous.any((element) => element.id == current.id)
+                ? previous
+                : [...previous, current]);
   }
 
   List<WorkSessionModel> getUserSessions(UserModel user) =>

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_teamonapp/core/constants/app_colors.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
 import 'package:flutter_teamonapp/routes/app_routes.dart';
 
@@ -16,6 +17,7 @@ class ProfileAdminWidget extends StatelessWidget {
         ),
         const SizedBox(height: AppDimens.MAIN_SPACE / 2),
         Card(
+          color: AppColors.SECONDARY_LIGHT,
           child: Column(
             children: ListTile.divideTiles(context: context, tiles: [
               ListTile(

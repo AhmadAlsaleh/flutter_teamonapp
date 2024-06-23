@@ -1,6 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_teamonapp/core/constants/app_colors.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
 import 'package:flutter_teamonapp/models/notification_model.dart';
 import 'package:flutter_teamonapp/viewmodels/notifications_viewmodel.dart';
@@ -13,20 +13,16 @@ class NotificationWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    return Card(
-        child: ExpansionTile(
-      tilePadding:
-          const EdgeInsets.only(left: 0.0, right: AppDimens.MAIN_SPACE),
-      leading: IconButton(
-          onPressed: () =>
-              (notification.receiver?.status == NotificationModel.UNREAD)
-                  ? ref
-                      .read(notificationsViewModelProvider.notifier)
-                      .read(notification.receiver!)
-                  : null,
-          icon: notification.receiver?.status == NotificationModel.UNREAD
-              ? const Icon(CupertinoIcons.circle)
-              : const Icon(CupertinoIcons.checkmark_circle_fill)),
+    return ExpansionTile(
+      collapsedBackgroundColor:
+          notification.receiver?.status == NotificationModel.READ
+              ? AppColors.WHITE
+              : AppColors.SECONDARY_LIGHT,
+      onExpansionChanged: (b) {
+        if (notification.receiver?.status == NotificationModel.UNREAD) {
+          ref.read(notificationsViewModelProvider.notifier).read(notification);
+        }
+      },
       shape: Border.all(color: Colors.transparent),
       title: Text(notification.title),
       subtitle: Text(
@@ -34,12 +30,17 @@ class NotificationWidget extends ConsumerWidget {
         style:
             Theme.of(context).textTheme.bodySmall?.copyWith(color: Colors.grey),
       ),
-      childrenPadding: const EdgeInsets.all(AppDimens.MAIN_SPACE),
+      tilePadding:
+          const EdgeInsets.symmetric(horizontal: AppDimens.MAIN_SPACE * 2),
+      childrenPadding: const EdgeInsets.only(
+        left: AppDimens.MAIN_SPACE * 2,
+        right: AppDimens.MAIN_SPACE * 2,
+        bottom: AppDimens.MAIN_SPACE,
+      ),
       expandedAlignment: Alignment.centerLeft,
       expandedCrossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(notification.body),
-        const SizedBox(height: AppDimens.MAIN_SPACE / 2),
         Text(
           "Sent by ${notification.sender.fullName}",
           style: Theme.of(context)
@@ -48,6 +49,6 @@ class NotificationWidget extends ConsumerWidget {
               ?.copyWith(color: Colors.grey),
         ),
       ],
-    ));
+    );
   }
 }

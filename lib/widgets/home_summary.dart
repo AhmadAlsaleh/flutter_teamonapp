@@ -51,41 +51,43 @@ class _HomeSummaryState extends ConsumerState<HomeSummary> {
             });
           });
 
-          return Row(
-            children: [
-              Expanded(
-                child: Card(
-                  color: AppColors.SECONDARY_LIGHT,
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.all(AppDimens.MAIN_SPACE),
-                    title: const Text(
-                      "Work",
-                      style: TextStyle(fontSize: 28),
-                    ),
-                    subtitle: Text(
-                      workText,
-                      style: const TextStyle(fontSize: 24),
-                    ),
-                  ),
-                ),
-              ),
-              const SizedBox(width: AppDimens.MAIN_SPACE),
-              Expanded(
-                child: Card(
-                  child: ListTile(
-                    contentPadding: const EdgeInsets.all(AppDimens.MAIN_SPACE),
-                    title: const Text(
-                      "Break",
-                      style: TextStyle(fontSize: 28),
-                    ),
-                    subtitle: Text(
-                      breakText,
-                      style: const TextStyle(fontSize: 24),
+          return Padding(
+            padding:
+                const EdgeInsets.symmetric(horizontal: AppDimens.MAIN_SPACE),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Card(
+                    child: ListTile(
+                      title: const Text(
+                        "Work",
+                        style: TextStyle(fontSize: 28),
+                      ),
+                      subtitle: Text(
+                        workText,
+                        style: const TextStyle(fontSize: 24),
+                      ),
                     ),
                   ),
                 ),
-              ),
-            ],
+                const SizedBox(width: AppDimens.MAIN_SPACE / 2),
+                Expanded(
+                  child: Card(
+                    color: AppColors.SECONDARY_LIGHT,
+                    child: ListTile(
+                      title: const Text(
+                        "Break",
+                        style: TextStyle(fontSize: 28),
+                      ),
+                      subtitle: Text(
+                        breakText,
+                        style: const TextStyle(fontSize: 24),
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           );
         },
         error: (e, s) => const MessageWidget(),

@@ -7,11 +7,11 @@ class AppColors {
   static const Color WHITE = Color(0xffffffff);
   static const Color RED = Color.fromARGB(255, 208, 28, 28);
 
-  static const Color PRIMARY = Color(0xff6c8c8d);
-  static const Color PRIMARY_LIGHT = Color.fromARGB(255, 234, 254, 255);
-  static const Color PRIMARY_DARK = Color(0xff435a59);
+  static const Color PRIMARY = Color(0xfff39200);
+  static const Color PRIMARY_DARK = Color(0xffb57007);
+  static const Color PRIMARY_LIGHT = Color(0xffd1c4b0);
 
-  static const Color SECONDARY = Color(0xffd1865a);
-  static const Color SECONDARY_LIGHT = Color.fromARGB(255, 253, 241, 235);
-  static const Color SECONDARY_DARK = Color.fromARGB(255, 122, 75, 47);
+  static const Color SECONDARY = Color(0xff717e86);
+  static const Color SECONDARY_LIGHT = Color.fromARGB(255, 227, 235, 240);
+  static const Color SECONDARY_DARK = Color(0xff4c565c);
 }

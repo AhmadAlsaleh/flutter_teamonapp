@@ -53,43 +53,39 @@ class _PushNotificationPageState extends ConsumerState<PushNotificationPage> {
                   "Content",
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppDimens.MAIN_SPACE),
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: titleController,
-                          keyboardType: TextInputType.name,
-                          textInputAction: TextInputAction.next,
-                          decoration: const InputDecoration(
-                            hintText: 'Title',
-                            fillColor: AppColors.WHITE,
-                            filled: true,
-                          ),
-                          validator: (value) => value == null || value.isEmpty
-                              ? 'Please enter a valid title'
-                              : null,
-                        ),
-                        const SizedBox(height: AppDimens.MAIN_SPACE),
-                        TextFormField(
-                          controller: bodyController,
-                          textInputAction: TextInputAction.newline,
-                          minLines: 2,
-                          maxLines: 5,
-                          keyboardType: TextInputType.multiline,
-                          decoration: const InputDecoration(
-                            hintText: 'Body',
-                            fillColor: AppColors.WHITE,
-                            filled: true,
-                          ),
-                          validator: (value) => value == null || value.isEmpty
-                              ? 'Please enter a valid body'
-                              : null,
-                        ),
-                      ],
+                const SizedBox(height: AppDimens.MAIN_SPACE),
+                Column(
+                  children: [
+                    TextFormField(
+                      controller: titleController,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
+                        hintText: 'Title',
+                        fillColor: AppColors.WHITE,
+                        filled: true,
+                      ),
+                      validator: (value) => value == null || value.isEmpty
+                          ? 'Please enter a valid title'
+                          : null,
                     ),
-                  ),
+                    const SizedBox(height: AppDimens.MAIN_SPACE),
+                    TextFormField(
+                      controller: bodyController,
+                      textInputAction: TextInputAction.newline,
+                      minLines: 3,
+                      maxLines: 5,
+                      keyboardType: TextInputType.multiline,
+                      decoration: const InputDecoration(
+                        hintText: 'Body',
+                        fillColor: AppColors.WHITE,
+                        filled: true,
+                      ),
+                      validator: (value) => value == null || value.isEmpty
+                          ? 'Please enter a valid body'
+                          : null,
+                    ),
+                  ],
                 ),
                 const SizedBox(height: AppDimens.MAIN_SPACE),
                 users.when(
@@ -119,33 +115,31 @@ class _PushNotificationPageState extends ConsumerState<PushNotificationPage> {
                           Card(
                             child: Column(
                               children: ListTile.divideTiles(
-                                      context: context,
-                                      tiles: data
-                                          .map((u) => CheckboxListTile(
-                                                title: Text(u.fullName),
-                                                subtitle: Text(u.email),
-                                                value: selectedUserIds
-                                                    .contains(u.id),
-                                                onChanged: (bool? value) {
-                                                  if (value == true) {
-                                                    setState(() {
-                                                      selectedUserIds =
-                                                          selectedUserIds
-                                                            ..add(u.id);
-                                                    });
-                                                  }
+                                context: context,
+                                tiles: data
+                                    .map((u) => CheckboxListTile(
+                                          title: Text(u.fullName),
+                                          subtitle: Text(u.email),
+                                          value: selectedUserIds.contains(u.id),
+                                          onChanged: (bool? value) {
+                                            if (value == true) {
+                                              setState(() {
+                                                selectedUserIds =
+                                                    selectedUserIds..add(u.id);
+                                              });
+                                            }
 
-                                                  if (value == false) {
-                                                    setState(() {
-                                                      selectedUserIds =
-                                                          selectedUserIds
-                                                            ..remove(u.id);
-                                                    });
-                                                  }
-                                                },
-                                              ))
-                                          .toList())
-                                  .toList(),
+                                            if (value == false) {
+                                              setState(() {
+                                                selectedUserIds =
+                                                    selectedUserIds
+                                                      ..remove(u.id);
+                                              });
+                                            }
+                                          },
+                                        ))
+                                    .toList(),
+                              ).toList(),
                             ),
                           ),
                         ],
@@ -176,7 +170,7 @@ class _PushNotificationPageState extends ConsumerState<PushNotificationPage> {
                       } catch (e) {}
                     }
                   },
-                  child: const Text('Save'),
+                  child: const Text('Send'),
                 ),
                 const SizedBox(height: AppDimens.MAIN_SPACE),
               ],

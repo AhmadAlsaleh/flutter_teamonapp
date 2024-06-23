@@ -56,40 +56,36 @@ class _EditEmployeePageState extends ConsumerState<EditEmployeePage> {
                   "Personal Info",
                   style: Theme.of(context).textTheme.displaySmall,
                 ),
-                Card(
-                  child: Padding(
-                    padding: const EdgeInsets.all(AppDimens.MAIN_SPACE),
-                    child: Column(
-                      children: [
-                        TextFormField(
-                          controller: nameController,
-                          keyboardType: TextInputType.name,
-                          textInputAction: TextInputAction.next,
-                          decoration: const InputDecoration(
-                            hintText: 'Full Name',
-                            fillColor: AppColors.WHITE,
-                            filled: true,
-                          ),
-                          validator: (value) => value == null || value.isEmpty
-                              ? 'Please enter a valid name'
-                              : null,
-                        ),
-                        const SizedBox(height: AppDimens.MAIN_SPACE),
-                        TextFormField(
-                          controller: professionController,
-                          textInputAction: TextInputAction.next,
-                          decoration: const InputDecoration(
-                            hintText: 'Profession',
-                            fillColor: AppColors.WHITE,
-                            filled: true,
-                          ),
-                          validator: (value) => value == null || value.isEmpty
-                              ? 'Please enter a valid profession'
-                              : null,
-                        ),
-                      ],
+                const SizedBox(height: AppDimens.MAIN_SPACE),
+                Column(
+                  children: [
+                    TextFormField(
+                      controller: nameController,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
+                        hintText: 'Full Name',
+                        fillColor: AppColors.WHITE,
+                        filled: true,
+                      ),
+                      validator: (value) => value == null || value.isEmpty
+                          ? 'Please enter a valid name'
+                          : null,
                     ),
-                  ),
+                    const SizedBox(height: AppDimens.MAIN_SPACE),
+                    TextFormField(
+                      controller: professionController,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
+                        hintText: 'Profession',
+                        fillColor: AppColors.WHITE,
+                        filled: true,
+                      ),
+                      validator: (value) => value == null || value.isEmpty
+                          ? 'Please enter a valid profession'
+                          : null,
+                    ),
+                  ],
                 ),
                 const SizedBox(height: AppDimens.MAIN_SPACE),
                 Text(

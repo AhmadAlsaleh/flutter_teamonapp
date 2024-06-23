@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_teamonapp/core/constants/app_colors.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
 import 'package:flutter_teamonapp/viewmodels/user_viewmodel.dart';
 import 'package:flutter_teamonapp/widgets/loading.dart';
@@ -35,6 +36,7 @@ class ProfilePage extends ConsumerWidget {
                         if (data.role == 'admin') const ProfileAdminWidget(),
                         const SizedBox(height: AppDimens.MAIN_SPACE),
                         Card(
+                          color: AppColors.SECONDARY_LIGHT,
                           child: Column(
                             children:
                                 ListTile.divideTiles(context: context, tiles: [
@@ -44,7 +46,10 @@ class ProfilePage extends ConsumerWidget {
                           ),
                         ),
                         const SizedBox(height: AppDimens.MAIN_SPACE),
-                        const Card(child: LogoutWidget()),
+                        const Card(
+                          color: AppColors.SECONDARY_LIGHT,
+                          child: LogoutWidget(),
+                        ),
                       ],
                     ),
               error: (e, s) => const MessageWidget(),

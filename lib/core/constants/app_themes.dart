@@ -13,7 +13,7 @@ ThemeData appTheme(BuildContext context) => ThemeData(
         displayLarge: TextStyle(
           fontSize: 55.0,
           fontWeight: FontWeight.normal,
-          color: AppColors.PRIMARY,
+          color: AppColors.SECONDARY,
         ),
         displayMedium: TextStyle(
           color: AppColors.BLACK,
@@ -27,7 +27,7 @@ ThemeData appTheme(BuildContext context) => ThemeData(
         titleLarge: TextStyle(
           fontSize: 33.0,
           fontWeight: FontWeight.normal,
-          color: AppColors.SECONDARY,
+          color: AppColors.PRIMARY,
         ),
         titleMedium: TextStyle(fontSize: 20.0, fontWeight: FontWeight.normal),
         bodyLarge: TextStyle(fontSize: 22.0, color: AppColors.SECONDARY),
@@ -37,9 +37,9 @@ ThemeData appTheme(BuildContext context) => ThemeData(
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
-          backgroundColor: AppColors.SECONDARY,
+          backgroundColor: AppColors.PRIMARY,
           textStyle: const TextStyle(fontSize: 24.0),
-          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
+          padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppDimens.BORDER_RADUIS),
           ),
@@ -48,7 +48,7 @@ ThemeData appTheme(BuildContext context) => ThemeData(
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: AppColors.PRIMARY,
-          textStyle: const TextStyle(fontSize: 20.0),
+          textStyle: const TextStyle(fontSize: 24.0),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppDimens.BORDER_RADUIS),
@@ -66,6 +66,9 @@ ThemeData appTheme(BuildContext context) => ThemeData(
         foregroundColor: AppColors.WHITE,
       ),
       inputDecorationTheme: InputDecorationTheme(
+        contentPadding: const EdgeInsets.symmetric(
+            horizontal: AppDimens.MAIN_SPACE,
+            vertical: AppDimens.MAIN_SPACE / 2),
         focusColor: AppColors.SECONDARY,
         border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(AppDimens.BORDER_RADUIS)),
