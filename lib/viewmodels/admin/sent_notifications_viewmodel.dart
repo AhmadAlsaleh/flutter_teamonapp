@@ -1,7 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/models/auth_model.dart';
 import 'package:flutter_teamonapp/models/notification_model.dart';
-import 'package:flutter_teamonapp/models/push_notification_model.dart';
 import 'package:flutter_teamonapp/services/api_service.dart';
 import 'package:flutter_teamonapp/viewmodels/auth_viewmodel.dart';
 
@@ -26,11 +25,11 @@ class SentNotificationNotifier
   Future<void> fetchData() async {
     try {
       var authModel = authModelAsync.valueOrNull;
-      if (authModel == null) return;
+
       state = const AsyncValue.loading();
       var notifications = await _apiService.getSentNotifications(
-        token: authModel.token,
-        userId: authModel.userId,
+        token: authModel?.token,
+        userId: authModel?.userId,
       );
 
       notifications.sort((a, b) => b.id.compareTo(a.id));
@@ -38,17 +37,5 @@ class SentNotificationNotifier
     } catch (e, s) {
       state = AsyncValue.error(e, s);
     }
-  }
-
-  Future<bool> pushNotification(
-      PushNotificationModel pushNotificationModel) async {
-    var authModel = authModelAsync.valueOrNull;
-    if (authModel == null) return false;
-
-    state = const AsyncValue.loading();
-    var isPushed = await _apiService.pushNotifications(pushNotificationModel,
-        token: authModel.token);
-    if (isPushed) fetchData();
-    return isPushed;
   }
 }

@@ -13,6 +13,7 @@ class SentNotificationWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     return ExpansionTile(
+      backgroundColor: AppColors.WHITE,
       shape: Border.all(color: Colors.transparent),
       title: Text(notification.title),
       subtitle: Text(

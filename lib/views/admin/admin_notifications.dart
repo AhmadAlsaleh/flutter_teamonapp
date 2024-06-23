@@ -51,9 +51,7 @@ class _AdminNotificationsState extends ConsumerState<AdminNotifications> {
 
     return Scaffold(
       backgroundColor: AppColors.WHITE,
-      appBar: AppBar(
-        title: const Text("Sent Notifications", style: TextStyle(fontSize: 22)),
-      ),
+      appBar: AppBar(title: const Text("Sent Notifications")),
       floatingActionButton: Visibility(
         visible: _isFabVisible,
         child: FloatingActionButton.extended(
@@ -67,10 +65,7 @@ class _AdminNotificationsState extends ConsumerState<AdminNotifications> {
             backgroundColor: Colors.white,
             builder: (_) => const PushNotificationPage(),
           ),
-          label: const Text(
-            "Push Notification",
-            style: TextStyle(fontSize: 16),
-          ),
+          label: const Text("Push Notification"),
         ),
       ),
       body: Column(

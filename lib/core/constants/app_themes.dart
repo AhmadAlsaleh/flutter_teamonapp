@@ -9,6 +9,10 @@ ThemeData appTheme(BuildContext context) => ThemeData(
       primaryColor: AppColors.PRIMARY,
       primarySwatch: ColorTools.createPrimarySwatch(AppColors.PRIMARY),
       dividerColor: AppColors.SECONDARY,
+      appBarTheme: const AppBarTheme(
+          iconTheme: IconThemeData(color: AppColors.PRIMARY_DARK),
+          titleTextStyle:
+              TextStyle(fontSize: 22, color: AppColors.PRIMARY_DARK)),
       textTheme: const TextTheme(
         displayLarge: TextStyle(
           fontSize: 55.0,

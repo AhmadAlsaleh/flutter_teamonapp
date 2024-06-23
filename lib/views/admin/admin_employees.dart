@@ -52,23 +52,12 @@ class _AdminEmployeesState extends ConsumerState<AdminEmployees> {
 
     return Scaffold(
       backgroundColor: AppColors.WHITE,
-      appBar: AppBar(
-          title: const Text("Employees", style: TextStyle(fontSize: 22))),
+      appBar: AppBar(title: const Text("Employees")),
       floatingActionButton: Visibility(
         visible: _isFabVisible,
         child: FloatingActionButton.extended(
-          onPressed: () => showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            shape: const RoundedRectangleBorder(
-              borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(AppDimens.BORDER_RADUIS)),
-            ),
-            backgroundColor: Colors.white,
-            builder: (_) => const AddEmployeePage(),
-          ),
-          label: const Text("Add Employee", style: TextStyle(fontSize: 16)),
-        ),
+            onPressed: _openAddEmployeeScreen,
+            label: const Text("Add Employee")),
       ),
       body: Column(
         children: [
@@ -104,4 +93,15 @@ class _AdminEmployeesState extends ConsumerState<AdminEmployees> {
       ),
     );
   }
+
+  void _openAddEmployeeScreen() => showModalBottomSheet(
+        context: context,
+        isScrollControlled: true,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+              top: Radius.circular(AppDimens.BORDER_RADUIS)),
+        ),
+        backgroundColor: Colors.white,
+        builder: (_) => const AddEmployeePage(),
+      );
 }

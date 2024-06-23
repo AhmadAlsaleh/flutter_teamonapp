@@ -33,13 +33,11 @@ class WorkSessionNotifier
   void fetchData() async {
     try {
       var authModel = authModelAsync.valueOrNull;
-      if (authModel == null) {
-        return;
-      }
+
       state = const AsyncValue.loading();
       var sessions = await _apiService.getWorkSessions(
-        token: authModel.token,
-        userId: authModel.userId,
+        token: authModel?.token,
+        userId: authModel?.userId,
         dateTime: selectedDate,
       );
       state = AsyncValue.data(sessions);
@@ -50,13 +48,13 @@ class WorkSessionNotifier
 
   void startSession() async {
     try {
-      state = const AsyncValue.loading();
-
       var token = authModelAsync.value?.token;
       var userId = authModelAsync.value?.userId;
 
+      state = const AsyncValue.loading();
       var session =
           await _apiService.startWorkSession(token, userId, selectedDate);
+
       DateTime time = DateTime.now().copyWith(
         year: selectedDate.year,
         month: selectedDate.month,

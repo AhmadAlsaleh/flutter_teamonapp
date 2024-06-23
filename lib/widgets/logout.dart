@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_colors.dart';
 import 'package:flutter_teamonapp/viewmodels/auth_viewmodel.dart';
-import 'package:flutter_teamonapp/viewmodels/main_provider.dart';
+import 'package:flutter_teamonapp/widgets/confirmation_bottom_sheet.dart';
 
 class LogoutWidget extends ConsumerWidget {
   const LogoutWidget({super.key});
@@ -12,9 +12,10 @@ class LogoutWidget extends ConsumerWidget {
     return ListTile(
       title: const Text("Logout"),
       textColor: AppColors.RED,
-      onTap: () async {
-        ref.read(selectedMainPageIndexProvider.notifier).state = 0;
-        ref.read(authViewModelProvider.notifier).logout();
+      onTap: () {
+        showConfirmationBottomSheet(context, "Logout", "sure to logout?", () {
+          ref.read(authViewModelProvider.notifier).logout();
+        });
       },
     );
   }

@@ -26,11 +26,11 @@ class NotificationNotifier
   Future<void> fetchData() async {
     try {
       var authModel = authModelAsync.valueOrNull;
-      if (authModel == null) return;
+
       state = const AsyncValue.loading();
       var notifications = await _apiService.getNotifications(
-        token: authModel.token,
-        userId: authModel.userId,
+        token: authModel?.token,
+        userId: authModel?.userId,
       );
 
       notifications.sort((a, b) => b.id.compareTo(a.id));

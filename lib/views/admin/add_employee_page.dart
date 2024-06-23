@@ -20,7 +20,7 @@ class _AddEmployeePageState extends ConsumerState<AddEmployeePage> {
   final professionController = TextEditingController();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
-  String? roleController = "user";
+  String? roleController;
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +43,8 @@ class _AddEmployeePageState extends ConsumerState<AddEmployeePage> {
                 Text("New Employee",
                     style: Theme.of(context).textTheme.titleLarge),
                 const SizedBox(height: AppDimens.MAIN_SPACE * 2),
-                Text(
-                  "Personal Info",
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
+                Text("Personal Info",
+                    style: Theme.of(context).textTheme.displaySmall),
                 const SizedBox(height: AppDimens.MAIN_SPACE),
                 Column(
                   children: [
@@ -79,10 +77,7 @@ class _AddEmployeePageState extends ConsumerState<AddEmployeePage> {
                   ],
                 ),
                 const SizedBox(height: AppDimens.MAIN_SPACE),
-                Text(
-                  "Role",
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
+                Text("Role", style: Theme.of(context).textTheme.displaySmall),
                 const SizedBox(height: AppDimens.MAIN_SPACE),
                 Card(
                   color: AppColors.SECONDARY_LIGHT,
@@ -106,10 +101,8 @@ class _AddEmployeePageState extends ConsumerState<AddEmployeePage> {
                   ),
                 ),
                 const SizedBox(height: AppDimens.MAIN_SPACE),
-                Text(
-                  "Login Credintials",
-                  style: Theme.of(context).textTheme.displaySmall,
-                ),
+                Text("Login Credintials",
+                    style: Theme.of(context).textTheme.displaySmall),
                 const SizedBox(height: AppDimens.MAIN_SPACE),
                 Column(
                   children: [

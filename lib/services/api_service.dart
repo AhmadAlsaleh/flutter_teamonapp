@@ -196,8 +196,6 @@ class ApiService {
         "workSessionId": stepModel.workSessionId,
         "dateTime": stepModel.dateTime.toUtc().toIso8601String(),
         "type": stepModel.type,
-        "latitude": 0.0,
-        "longitude": 0.0,
       },
       token: token,
     );

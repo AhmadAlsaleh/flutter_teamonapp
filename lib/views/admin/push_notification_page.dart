@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_colors.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
 import 'package:flutter_teamonapp/models/push_notification_model.dart';
+import 'package:flutter_teamonapp/viewmodels/admin/push_notification.dart';
 import 'package:flutter_teamonapp/viewmodels/admin/sent_notifications_viewmodel.dart';
 import 'package:flutter_teamonapp/viewmodels/admin/users_viewmodel.dart';
 import 'package:flutter_teamonapp/viewmodels/auth_viewmodel.dart';
@@ -150,12 +151,13 @@ class _PushNotificationPageState extends ConsumerState<PushNotificationPage> {
                 const SizedBox(height: AppDimens.MAIN_SPACE * 2),
                 ElevatedButton(
                   onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
+                    if (_formKey.currentState!.validate() &&
+                        selectedUserIds.isNotEmpty) {
                       final title = titleController.text.trim();
                       final body = bodyController.text.trim();
 
                       var isPuhed = await ref
-                          .read(sentNotificationsViewModelProvider.notifier)
+                          .read(pushNotificationsProvider.notifier)
                           .pushNotification(
                             PushNotificationModel(
                               title: title,

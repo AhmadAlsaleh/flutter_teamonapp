@@ -27,9 +27,9 @@ class UsersNotifier extends StateNotifier<AsyncValue<List<UserModel>>> {
   Future<void> fetchData() async {
     try {
       var authModel = authModelAsync.valueOrNull;
-      if (authModel == null) return;
+
       state = const AsyncValue.loading();
-      _allUsers = await _apiService.getUsers(token: authModel.token);
+      _allUsers = await _apiService.getUsers(token: authModel?.token);
       state = AsyncValue.data(_allUsers);
     } catch (e, s) {
       state = AsyncValue.error(e, s);
@@ -53,10 +53,9 @@ class UsersNotifier extends StateNotifier<AsyncValue<List<UserModel>>> {
 
   Future<bool> deleteUser(int id) async {
     var authModel = authModelAsync.valueOrNull;
-    if (authModel == null) return false;
 
     state = const AsyncValue.loading();
-    var isDeleted = await _apiService.deleteUser(id, token: authModel.token);
+    var isDeleted = await _apiService.deleteUser(id, token: authModel?.token);
     if (isDeleted) fetchData();
 
     state = AsyncValue.data(_allUsers);
@@ -65,10 +64,9 @@ class UsersNotifier extends StateNotifier<AsyncValue<List<UserModel>>> {
 
   Future<bool> addUser(AddUserModel model) async {
     var authModel = authModelAsync.valueOrNull;
-    if (authModel == null) return false;
 
     state = const AsyncValue.loading();
-    var addedUser = await _apiService.addUser(model, token: authModel.token);
+    var addedUser = await _apiService.addUser(model, token: authModel?.token);
     if (addedUser != null) fetchData();
 
     state = AsyncValue.data(_allUsers);
@@ -77,10 +75,9 @@ class UsersNotifier extends StateNotifier<AsyncValue<List<UserModel>>> {
 
   Future<bool> updateUser(UserModel model) async {
     var authModel = authModelAsync.valueOrNull;
-    if (authModel == null) return false;
 
     state = const AsyncValue.loading();
-    var updated = await _apiService.updateUser(model, token: authModel.token);
+    var updated = await _apiService.updateUser(model, token: authModel?.token);
     if (updated != null) fetchData();
 
     state = AsyncValue.data(_allUsers);

@@ -47,7 +47,7 @@ class WorkTable extends StatelessWidget {
                             ),
                           ),
                           Text(
-                            "Break for ${listWorkSession.getUserWorkDuration(user).toString().split(".")[0]}",
+                            "Break for ${listWorkSession.getUserBreakDuration(user).toString().split(".")[0]}",
                             style: const TextStyle(
                               fontSize: 18,
                               color: AppColors.SECONDARY,

@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
@@ -18,11 +16,10 @@ final firebaseInitializerProvider = FutureProvider<FirebaseApp>((ref) async {
 
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  log('Handling a background message ${message.messageId}');
 }
 
 const AndroidNotificationChannel channel = AndroidNotificationChannel(
-    "election_iraq", "Election Iraq",
+    "soft_park", "Soft Park Team",
     importance: Importance.high);
 
 final FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =

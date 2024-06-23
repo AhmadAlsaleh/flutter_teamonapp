@@ -32,12 +32,10 @@ class AdminWorkSessionNotifier
   Future<void> fetchData() async {
     try {
       var authModel = authModelAsync.valueOrNull;
-      if (authModel == null) {
-        return;
-      }
+
       state = const AsyncValue.loading();
       var sessions = await _apiService.getAdminWorkSessions(
-        token: authModel.token,
+        token: authModel?.token,
         dateRange: selectedDateRange,
       );
       state = AsyncValue.data(sessions);

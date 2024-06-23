@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_teamonapp/core/constants/app_colors.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
 import 'package:flutter_teamonapp/models/user_model.dart';
 import 'package:flutter_teamonapp/viewmodels/admin/users_viewmodel.dart';
@@ -20,6 +21,7 @@ class UserWidget extends ConsumerWidget {
     if (user == null) return Container();
 
     return ExpansionTile(
+      backgroundColor: AppColors.WHITE,
       shape: Border.all(color: Colors.transparent),
       leading: userModel.isActive
           ? const Icon(CupertinoIcons.checkmark_circle_fill)
