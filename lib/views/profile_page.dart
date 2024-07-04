@@ -3,6 +3,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_colors.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
 import 'package:flutter_teamonapp/viewmodels/user_viewmodel.dart';
+import 'package:flutter_teamonapp/views/edit_information.dart';
 import 'package:flutter_teamonapp/widgets/loading.dart';
 import 'package:flutter_teamonapp/widgets/logout.dart';
 import 'package:flutter_teamonapp/widgets/message.dart';
@@ -40,7 +41,22 @@ class ProfilePage extends ConsumerWidget {
                           child: Column(
                             children:
                                 ListTile.divideTiles(context: context, tiles: [
-                              const ListTile(title: Text("Edit information")),
+                              ListTile(
+                                title: const Text("Edit information"),
+                                onTap: () => showModalBottomSheet(
+                                  context: context,
+                                  isScrollControlled: true,
+                                  isDismissible: false,
+                                  shape: const RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.vertical(
+                                        top: Radius.circular(
+                                            AppDimens.BORDER_RADUIS)),
+                                  ),
+                                  backgroundColor: Colors.white,
+                                  builder: (_) =>
+                                      EditInformation(userModel: data),
+                                ),
+                              ),
                               const ListTile(title: Text("Change Password")),
                             ]).toList(),
                           ),

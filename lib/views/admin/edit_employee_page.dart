@@ -20,7 +20,7 @@ class _EditEmployeePageState extends ConsumerState<EditEmployeePage> {
   final nameController = TextEditingController();
   final professionController = TextEditingController();
   bool isActive = true;
-  String? roleController = "employee";
+  String? roleController;
 
   @override
   void initState() {
