@@ -15,30 +15,38 @@ class UserModel {
   final double? breakHours;
   final String? workdays;
 
-  UserModel(
-      {required this.id,
-      required this.fullName,
-      required this.email,
-      required this.role,
-      required this.profession,
-      required this.isActive,
-      this.salary,
-      this.workHours,
-      this.breakHours,
-      this.workdays});
+  UserModel({
+    required this.id,
+    required this.fullName,
+    required this.email,
+    required this.role,
+    required this.profession,
+    required this.isActive,
+    this.salary,
+    this.workHours,
+    this.breakHours,
+    this.workdays,
+  });
 
-  factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
-        id: json['id'],
-        fullName: json['fullName'],
-        email: json['email'],
-        role: json['role'],
-        profession: json['profession'],
-        isActive: json['isActive'],
-        salary: json['salary'] == null ? 0.0 : double.tryParse(json['salary']),
-        workHours: json['workHours'],
-        breakHours: json['breakHours'],
-        workdays: json['workdays'],
-      );
+  factory UserModel.fromJson(Map<String, dynamic> json) {
+    return UserModel(
+      id: json['id'],
+      fullName: json['fullName'],
+      email: json['email'],
+      role: json['role'],
+      profession: json['profession'],
+      isActive: json['isActive'],
+      salary:
+          json['salary'] == null ? 0.0 : double.tryParse("${json['salary']}"),
+      workHours: json['workHours'] == null
+          ? 0.0
+          : double.tryParse("${json['workHours']}"),
+      breakHours: json['breakHours'] == null
+          ? 0.0
+          : double.tryParse("${json['breakHours']}"),
+      workdays: json['workdays'],
+    );
+  }
 
   Map<String, dynamic> toJson() => {
         "id": id,

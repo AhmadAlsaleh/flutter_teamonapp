@@ -98,12 +98,7 @@ class ApiService {
     try {
       final response = await _networkService.put(
         "${AppConstants.usersEndpoint}/${model.id}",
-        {
-          "fullName": model.fullName,
-          "role": model.role,
-          "profession": model.profession,
-          "isActive": model.isActive,
-        },
+        model.toJson(),
         token: token,
       );
 

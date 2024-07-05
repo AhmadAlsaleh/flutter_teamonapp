@@ -7,6 +7,7 @@ import 'package:flutter_teamonapp/models/user_model.dart';
 import 'package:flutter_teamonapp/viewmodels/admin/users_viewmodel.dart';
 import 'package:flutter_teamonapp/viewmodels/auth_viewmodel.dart';
 import 'package:flutter_teamonapp/views/admin/edit_employee_page.dart';
+import 'package:flutter_teamonapp/views/admin/employees/edit_employee.dart';
 import 'package:flutter_teamonapp/widgets/confirmation_bottom_sheet.dart';
 
 class UserWidget extends ConsumerWidget {
@@ -50,17 +51,24 @@ class UserWidget extends ConsumerWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             TextButton.icon(
-              onPressed: () => showModalBottomSheet(
-                context: context,
-                isScrollControlled: true,
-                isDismissible: false,
-                shape: const RoundedRectangleBorder(
-                  borderRadius: BorderRadius.vertical(
-                      top: Radius.circular(AppDimens.BORDER_RADUIS)),
-                ),
-                backgroundColor: Colors.white,
-                builder: (_) => EditEmployeePage(userModel: userModel),
-              ),
+              onPressed: () {
+                Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                        builder: (_) => EditEmployee(userModel: userModel)));
+                return;
+                showModalBottomSheet(
+                  context: context,
+                  isScrollControlled: true,
+                  isDismissible: false,
+                  shape: const RoundedRectangleBorder(
+                    borderRadius: BorderRadius.vertical(
+                        top: Radius.circular(AppDimens.BORDER_RADUIS)),
+                  ),
+                  backgroundColor: Colors.white,
+                  builder: (_) => EditEmployeePage(userModel: userModel),
+                );
+              },
               icon: const Icon(CupertinoIcons.pen),
               label: const Text("Edit"),
             ),

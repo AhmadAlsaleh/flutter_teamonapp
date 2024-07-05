@@ -38,7 +38,7 @@ class _AddEmployeeWorkState extends ConsumerState<AddEmployeeWork> {
       decimalSymbol: ".",
     );
 
-    selectedWorkDays = (userData?.workdays ?? '').split(",");
+    selectedWorkDays = userData?.workdays?.split(",") ?? [];
   }
 
   void saveData() {
