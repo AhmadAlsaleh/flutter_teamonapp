@@ -51,8 +51,9 @@ class UserWidget extends ConsumerWidget {
           children: [
             TextButton.icon(
               onPressed: () => showModalBottomSheet(
-                isScrollControlled: true,
                 context: context,
+                isScrollControlled: true,
+                isDismissible: false,
                 shape: const RoundedRectangleBorder(
                   borderRadius: BorderRadius.vertical(
                       top: Radius.circular(AppDimens.BORDER_RADUIS)),

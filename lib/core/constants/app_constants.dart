@@ -5,6 +5,8 @@ class AppConstants {
   static const String loginEndpoint = '/auth/login';
   static const String logoutEndpoint = '/auth/logout';
   static const String checkAuthEndpoint = '/auth/check';
+  static const String changePasswordEndpoint = '/auth/change-password';
+
   static const String usersEndpoint = '/users';
 
   static const String workSessionsEndpoint = '/workSessions';

@@ -1,5 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/models/auth_model.dart';
+import 'package:flutter_teamonapp/models/change_password_model.dart';
 import 'package:flutter_teamonapp/services/api_service.dart';
 import 'package:flutter_teamonapp/services/firebase/push_notifications.dart';
 import 'package:flutter_teamonapp/utils/storage_helper.dart';
@@ -64,6 +65,17 @@ class AuthNotifier extends StateNotifier<AsyncValue<AuthModel?>> {
       await addFCMToken();
     } catch (e, s) {
       state = AsyncValue.error(e, s);
+    }
+  }
+
+  Future<bool> changePassword(ChangePasswordModel model) async {
+    try {
+      var authModel = state.value;
+      var updated =
+          await _apiService.changePasword(model, token: authModel?.token);
+      return updated;
+    } catch (e) {
+      return false;
     }
   }
 

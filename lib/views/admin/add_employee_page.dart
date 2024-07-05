@@ -138,32 +138,47 @@ class _AddEmployeePageState extends ConsumerState<AddEmployeePage> {
                   ],
                 ),
                 const SizedBox(height: AppDimens.MAIN_SPACE * 2),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      final name = nameController.text.trim();
-                      final profession = professionController.text.trim();
-                      final email = emailController.text.trim();
-                      final password = passwordController.text.trim();
-                      final role = roleController ?? "employee";
-
-                      var isAdded =
-                          await ref.read(usersProvider.notifier).addUser(
-                                AddUserModel(
-                                  fullName: name,
-                                  email: email,
-                                  password: password,
-                                  role: role,
-                                  profession: profession,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                        style:
+                            Theme.of(context).textButtonTheme.style?.copyWith(
+                                  foregroundColor:
+                                      const WidgetStatePropertyAll<Color>(
+                                          AppColors.RED),
                                 ),
-                              );
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("Cancel")),
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          final name = nameController.text.trim();
+                          final profession = professionController.text.trim();
+                          final email = emailController.text.trim();
+                          final password = passwordController.text.trim();
+                          final role = roleController ?? "employee";
 
-                      try {
-                        if (isAdded) Navigator.pop(context);
-                      } catch (e) {}
-                    }
-                  },
-                  child: const Text('Save'),
+                          var isAdded =
+                              await ref.read(usersProvider.notifier).addUser(
+                                    AddUserModel(
+                                      fullName: name,
+                                      email: email,
+                                      password: password,
+                                      role: role,
+                                      profession: profession,
+                                    ),
+                                  );
+
+                          try {
+                            // ignore: use_build_context_synchronously
+                            if (isAdded) Navigator.pop(context);
+                          } catch (e) {}
+                        }
+                      },
+                      child: const Text('Save'),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: AppDimens.MAIN_SPACE),
               ],

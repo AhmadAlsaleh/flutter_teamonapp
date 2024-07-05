@@ -6,6 +6,7 @@ import 'package:flutter_teamonapp/core/constants/app_constants.dart';
 import 'package:flutter_teamonapp/core/extensions/date_time_ext.dart';
 import 'package:flutter_teamonapp/models/add_user_model.dart';
 import 'package:flutter_teamonapp/models/auth_model.dart';
+import 'package:flutter_teamonapp/models/change_password_model.dart';
 import 'package:flutter_teamonapp/models/notification_model.dart';
 import 'package:flutter_teamonapp/models/push_notification_model.dart';
 import 'package:flutter_teamonapp/models/user_model.dart';
@@ -30,6 +31,13 @@ class ApiService {
       'password': password,
     });
     return AuthModel.fromJson(response);
+  }
+
+  Future<bool> changePasword(ChangePasswordModel model, {String? token}) async {
+    final response = await _networkService.post(
+        AppConstants.changePasswordEndpoint, model.toJson(),
+        token: token);
+    return response["code"] == 200;
   }
 
   Future<bool> addFCMToken(int? userId, String? fcmToken,

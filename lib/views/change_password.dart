@@ -2,30 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_colors.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
+import 'package:flutter_teamonapp/models/change_password_model.dart';
 import 'package:flutter_teamonapp/models/user_model.dart';
-import 'package:flutter_teamonapp/viewmodels/admin/users_viewmodel.dart';
+import 'package:flutter_teamonapp/viewmodels/auth_viewmodel.dart';
 import 'package:flutter_teamonapp/viewmodels/user_viewmodel.dart';
 
-class EditInformation extends ConsumerStatefulWidget {
-  const EditInformation({super.key, required this.userModel});
+class ChangePassword extends ConsumerStatefulWidget {
+  const ChangePassword({super.key, required this.userModel});
 
   final UserModel userModel;
 
   @override
-  ConsumerState<EditInformation> createState() => _EditInformationState();
+  ConsumerState<ChangePassword> createState() => _EditInformationState();
 }
 
-class _EditInformationState extends ConsumerState<EditInformation> {
+class _EditInformationState extends ConsumerState<ChangePassword> {
   final _formKey = GlobalKey<FormState>();
+  String? message;
+
   final emailController = TextEditingController();
-  final nameController = TextEditingController();
-  final professionController = TextEditingController();
+  final currentPasswordController = TextEditingController();
+  final newPasswordController = TextEditingController();
 
   @override
   void initState() {
     emailController.text = widget.userModel.email;
-    nameController.text = widget.userModel.fullName;
-    professionController.text = widget.userModel.profession;
     super.initState();
   }
 
@@ -43,7 +44,7 @@ class _EditInformationState extends ConsumerState<EditInformation> {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 const SizedBox(height: AppDimens.MAIN_SPACE),
-                Text("Edit Information",
+                Text("Change Password",
                     style: Theme.of(context).textTheme.titleLarge),
                 Text(widget.userModel.email,
                     style: Theme.of(context).textTheme.bodyLarge),
@@ -51,33 +52,41 @@ class _EditInformationState extends ConsumerState<EditInformation> {
                 Column(
                   children: [
                     TextFormField(
-                      controller: nameController,
-                      keyboardType: TextInputType.name,
+                      controller: currentPasswordController,
+                      keyboardType: TextInputType.visiblePassword,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
-                        hintText: 'Full Name',
+                        hintText: 'Current Password',
                         fillColor: AppColors.WHITE,
                         filled: true,
                       ),
                       validator: (value) => value == null || value.isEmpty
-                          ? 'Please enter a valid name'
+                          ? 'Please enter current password'
                           : null,
                     ),
                     const SizedBox(height: AppDimens.MAIN_SPACE),
                     TextFormField(
-                      controller: professionController,
+                      controller: newPasswordController,
+                      keyboardType: TextInputType.visiblePassword,
                       textInputAction: TextInputAction.next,
                       decoration: const InputDecoration(
-                        hintText: 'Profession',
+                        hintText: 'New Password',
                         fillColor: AppColors.WHITE,
                         filled: true,
                       ),
                       validator: (value) => value == null || value.isEmpty
-                          ? 'Please enter a valid profession'
+                          ? 'Please enter a valid password'
                           : null,
                     ),
                   ],
                 ),
+                const SizedBox(height: AppDimens.MAIN_SPACE * 2),
+                if (message != null)
+                  Text(message ?? "",
+                      style: Theme.of(context)
+                          .textTheme
+                          .bodyMedium
+                          ?.copyWith(color: AppColors.RED)),
                 const SizedBox(height: AppDimens.MAIN_SPACE * 2),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -107,16 +116,19 @@ class _EditInformationState extends ConsumerState<EditInformation> {
   }
 
   Future<void> _saveInformation(BuildContext context) async {
+    setState(() => message = null);
     if (_formKey.currentState!.validate()) {
-      final name = nameController.text.trim();
-      final profession = professionController.text.trim();
+      final email = emailController.text.trim();
+      final currentPassword = currentPasswordController.text.trim();
+      final newPassword = newPasswordController.text.trim();
 
-      var updated = await ref.read(usersProvider.notifier).updateUser(
-            widget.userModel.copyWith(
-              fullName: name,
-              profession: profession,
-            ),
-          );
+      var updated =
+          await ref.read(authViewModelProvider.notifier).changePassword(
+                ChangePasswordModel(
+                    email: email,
+                    currentPassword: currentPassword,
+                    newPassword: newPassword),
+              );
 
       try {
         if (updated) {
@@ -124,6 +136,10 @@ class _EditInformationState extends ConsumerState<EditInformation> {
           ref.refresh(userViewModelProvider);
           // ignore: use_build_context_synchronously
           Navigator.of(context).pop();
+        } else {
+          setState(() {
+            message = "invalid password";
+          });
         }
       } catch (e) {}
     }

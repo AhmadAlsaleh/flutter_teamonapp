@@ -96,6 +96,7 @@ class _AdminEmployeesState extends ConsumerState<AdminEmployees> {
 
   void _openAddEmployeeScreen() => showModalBottomSheet(
         context: context,
+        isDismissible: false,
         isScrollControlled: true,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(

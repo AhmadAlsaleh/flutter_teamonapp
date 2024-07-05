@@ -119,29 +119,43 @@ class _EditEmployeePageState extends ConsumerState<EditEmployeePage> {
                     onChanged: (value) =>
                         setState(() => isActive = value ?? false)),
                 const SizedBox(height: AppDimens.MAIN_SPACE * 2),
-                ElevatedButton(
-                  onPressed: () async {
-                    if (_formKey.currentState!.validate()) {
-                      final name = nameController.text.trim();
-                      final profession = professionController.text.trim();
-                      final role = roleController ?? "employee";
-
-                      var updated =
-                          await ref.read(usersProvider.notifier).updateUser(
-                                widget.userModel.copyWith(
-                                  fullName: name,
-                                  profession: profession,
-                                  role: role,
-                                  isActive: isActive,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    TextButton(
+                        style:
+                            Theme.of(context).textButtonTheme.style?.copyWith(
+                                  foregroundColor:
+                                      const WidgetStatePropertyAll<Color>(
+                                          AppColors.RED),
                                 ),
-                              );
+                        onPressed: () => Navigator.pop(context),
+                        child: const Text("Cancel")),
+                    ElevatedButton(
+                      onPressed: () async {
+                        if (_formKey.currentState!.validate()) {
+                          final name = nameController.text.trim();
+                          final profession = professionController.text.trim();
+                          final role = roleController ?? "employee";
 
-                      try {
-                        if (updated) Navigator.pop(context);
-                      } catch (e) {}
-                    }
-                  },
-                  child: const Text('Save'),
+                          var updated =
+                              await ref.read(usersProvider.notifier).updateUser(
+                                    widget.userModel.copyWith(
+                                      fullName: name,
+                                      profession: profession,
+                                      role: role,
+                                      isActive: isActive,
+                                    ),
+                                  );
+                          try {
+                            // ignore: use_build_context_synchronously
+                            if (updated) Navigator.pop(context);
+                          } catch (e) {}
+                        }
+                      },
+                      child: const Text('Save'),
+                    ),
+                  ],
                 ),
                 const SizedBox(height: AppDimens.MAIN_SPACE),
               ],
