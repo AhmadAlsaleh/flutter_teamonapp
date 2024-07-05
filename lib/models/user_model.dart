@@ -10,15 +10,22 @@ class UserModel {
   final String role;
   final String profession;
   final bool isActive;
+  final double? salary;
+  final double? workHours;
+  final double? breakHours;
+  final String? workdays;
 
-  UserModel({
-    required this.id,
-    required this.fullName,
-    required this.email,
-    required this.role,
-    required this.profession,
-    required this.isActive,
-  });
+  UserModel(
+      {required this.id,
+      required this.fullName,
+      required this.email,
+      required this.role,
+      required this.profession,
+      required this.isActive,
+      this.salary,
+      this.workHours,
+      this.breakHours,
+      this.workdays});
 
   factory UserModel.fromJson(Map<String, dynamic> json) => UserModel(
         id: json['id'],
@@ -27,6 +34,10 @@ class UserModel {
         role: json['role'],
         profession: json['profession'],
         isActive: json['isActive'],
+        salary: json['salary'] == null ? 0.0 : double.tryParse(json['salary']),
+        workHours: json['workHours'],
+        breakHours: json['breakHours'],
+        workdays: json['workdays'],
       );
 
   Map<String, dynamic> toJson() => {
@@ -36,6 +47,10 @@ class UserModel {
         "role": role,
         "profession": profession,
         "isActive": isActive,
+        "salary": salary,
+        "workHours": workHours,
+        "breakHours": breakHours,
+        "workdays": workdays,
       };
 
   UserModel copyWith({
@@ -45,6 +60,10 @@ class UserModel {
     String? role,
     String? profession,
     bool? isActive,
+    double? salary,
+    double? workHours,
+    double? breakHours,
+    String? workdays,
   }) {
     return UserModel(
       id: id ?? this.id,
@@ -53,6 +72,10 @@ class UserModel {
       role: role ?? this.role,
       profession: profession ?? this.profession,
       isActive: isActive ?? this.isActive,
+      salary: salary ?? this.salary,
+      workHours: workHours ?? this.workHours,
+      breakHours: breakHours ?? this.breakHours,
+      workdays: workdays ?? this.workdays,
     );
   }
 }

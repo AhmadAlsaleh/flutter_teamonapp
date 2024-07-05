@@ -5,8 +5,9 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_colors.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
 import 'package:flutter_teamonapp/viewmodels/admin/users_viewmodel.dart';
-import 'package:flutter_teamonapp/views/admin/add_employee_page.dart';
+import 'package:flutter_teamonapp/views/admin/employees/add_employee.dart';
 import 'package:flutter_teamonapp/widgets/admin/user_widget.dart';
+import 'package:flutter_teamonapp/widgets/loading.dart';
 import 'package:flutter_teamonapp/widgets/message.dart';
 import 'package:flutter_teamonapp/widgets/my_refresh_indicator.dart';
 
@@ -47,8 +48,9 @@ class _AdminEmployeesState extends ConsumerState<AdminEmployees> {
     var users = ref.watch(usersProvider);
 
     var data = users.valueOrNull ?? [];
-    var isError = users.hasError;
     var isData = users.hasValue;
+    var isError = users.hasError;
+    var isLoading = users.isLoading;
 
     return Scaffold(
       backgroundColor: AppColors.WHITE,
@@ -56,7 +58,10 @@ class _AdminEmployeesState extends ConsumerState<AdminEmployees> {
       floatingActionButton: Visibility(
         visible: _isFabVisible,
         child: FloatingActionButton.extended(
-            onPressed: _openAddEmployeeScreen,
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (_) => const AddEmployee()));
+            },
             label: const Text("Add Employee")),
       ),
       body: Column(
@@ -71,6 +76,7 @@ class _AdminEmployeesState extends ConsumerState<AdminEmployees> {
           ),
           const SizedBox(height: AppDimens.MAIN_SPACE),
           if (isError) const Expanded(child: MessageWidget()),
+          if (isLoading) const Expanded(child: LoadingWidget()),
           Expanded(
             child: MyRefreshIndicator(
               action: () => ref.read(usersProvider.notifier).fetchData(),
@@ -93,16 +99,4 @@ class _AdminEmployeesState extends ConsumerState<AdminEmployees> {
       ),
     );
   }
-
-  void _openAddEmployeeScreen() => showModalBottomSheet(
-        context: context,
-        isDismissible: false,
-        isScrollControlled: true,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(
-              top: Radius.circular(AppDimens.BORDER_RADUIS)),
-        ),
-        backgroundColor: Colors.white,
-        builder: (_) => const AddEmployeePage(),
-      );
 }

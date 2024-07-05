@@ -8,3 +8,13 @@ extension DateTimeExtensions on DateTime {
   String getTime() => DateFormat("hh:mm a").format(toLocal());
   String getDateTime() => DateFormat("yy-MM-dd hh:mm a").format(toLocal());
 }
+
+final weekDays = [
+  "Monday",
+  "Tuesday",
+  "Wednesday",
+  "Thursday",
+  "Friday",
+  "Saturday",
+  "Sunday"
+];

@@ -29,7 +29,6 @@ class _AddEmployeePageState extends ConsumerState<AddEmployeePage> {
 
     return SafeArea(
       child: Container(
-        height: MediaQuery.of(context).size.height * 0.85,
         padding:
             EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
         child: SingleChildScrollView(
@@ -42,64 +41,6 @@ class _AddEmployeePageState extends ConsumerState<AddEmployeePage> {
                 const SizedBox(height: AppDimens.MAIN_SPACE),
                 Text("New Employee",
                     style: Theme.of(context).textTheme.titleLarge),
-                const SizedBox(height: AppDimens.MAIN_SPACE * 2),
-                Text("Personal Info",
-                    style: Theme.of(context).textTheme.displaySmall),
-                const SizedBox(height: AppDimens.MAIN_SPACE),
-                Column(
-                  children: [
-                    TextFormField(
-                      controller: nameController,
-                      keyboardType: TextInputType.name,
-                      textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        hintText: 'Full Name',
-                        fillColor: AppColors.WHITE,
-                        filled: true,
-                      ),
-                      validator: (value) => value == null || value.isEmpty
-                          ? 'Please enter a valid name'
-                          : null,
-                    ),
-                    const SizedBox(height: AppDimens.MAIN_SPACE),
-                    TextFormField(
-                      controller: professionController,
-                      textInputAction: TextInputAction.next,
-                      decoration: const InputDecoration(
-                        hintText: 'Profession',
-                        fillColor: AppColors.WHITE,
-                        filled: true,
-                      ),
-                      validator: (value) => value == null || value.isEmpty
-                          ? 'Please enter a valid profession'
-                          : null,
-                    ),
-                  ],
-                ),
-                const SizedBox(height: AppDimens.MAIN_SPACE),
-                Text("Role", style: Theme.of(context).textTheme.displaySmall),
-                const SizedBox(height: AppDimens.MAIN_SPACE),
-                Card(
-                  color: AppColors.SECONDARY_LIGHT,
-                  child: Column(
-                    children: [
-                      RadioListTile(
-                        title: const Text("Admin"),
-                        value: "admin",
-                        groupValue: roleController,
-                        onChanged: (value) =>
-                            setState(() => roleController = value),
-                      ),
-                      RadioListTile(
-                        title: const Text("Employee"),
-                        value: "employee",
-                        groupValue: roleController,
-                        onChanged: (value) =>
-                            setState(() => roleController = value),
-                      ),
-                    ],
-                  ),
-                ),
                 const SizedBox(height: AppDimens.MAIN_SPACE),
                 Text("Login Credintials",
                     style: Theme.of(context).textTheme.displaySmall),
@@ -133,6 +74,64 @@ class _AddEmployeePageState extends ConsumerState<AddEmployeePage> {
                       obscureText: true,
                       validator: (value) => value == null || value.isEmpty
                           ? 'Please enter a valid password'
+                          : null,
+                    ),
+                  ],
+                ),
+                const SizedBox(height: AppDimens.MAIN_SPACE),
+                Text("Role", style: Theme.of(context).textTheme.displaySmall),
+                const SizedBox(height: AppDimens.MAIN_SPACE),
+                Card(
+                  color: AppColors.SECONDARY_LIGHT,
+                  child: Column(
+                    children: [
+                      RadioListTile(
+                        title: const Text("Admin"),
+                        value: "admin",
+                        groupValue: roleController,
+                        onChanged: (value) =>
+                            setState(() => roleController = value),
+                      ),
+                      RadioListTile(
+                        title: const Text("Employee"),
+                        value: "employee",
+                        groupValue: roleController,
+                        onChanged: (value) =>
+                            setState(() => roleController = value),
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: AppDimens.MAIN_SPACE),
+                Text("Personal Info",
+                    style: Theme.of(context).textTheme.displaySmall),
+                const SizedBox(height: AppDimens.MAIN_SPACE),
+                Column(
+                  children: [
+                    TextFormField(
+                      controller: nameController,
+                      keyboardType: TextInputType.name,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
+                        hintText: 'Full Name',
+                        fillColor: AppColors.WHITE,
+                        filled: true,
+                      ),
+                      validator: (value) => value == null || value.isEmpty
+                          ? 'Please enter a valid name'
+                          : null,
+                    ),
+                    const SizedBox(height: AppDimens.MAIN_SPACE),
+                    TextFormField(
+                      controller: professionController,
+                      textInputAction: TextInputAction.next,
+                      decoration: const InputDecoration(
+                        hintText: 'Profession',
+                        fillColor: AppColors.WHITE,
+                        filled: true,
+                      ),
+                      validator: (value) => value == null || value.isEmpty
+                          ? 'Please enter a valid profession'
                           : null,
                     ),
                   ],

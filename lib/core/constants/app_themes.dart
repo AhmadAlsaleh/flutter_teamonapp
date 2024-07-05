@@ -42,7 +42,7 @@ ThemeData appTheme(BuildContext context) => ThemeData(
         style: ElevatedButton.styleFrom(
           foregroundColor: Colors.white,
           backgroundColor: AppColors.PRIMARY,
-          textStyle: const TextStyle(fontSize: 24.0),
+          textStyle: const TextStyle(fontSize: 22.0),
           padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(AppDimens.BORDER_RADUIS),
@@ -64,6 +64,9 @@ ThemeData appTheme(BuildContext context) => ThemeData(
           foregroundColor: AppColors.SECONDARY,
           textStyle: const TextStyle(fontSize: 16.0),
         ),
+      ),
+      radioTheme: const RadioThemeData(
+        fillColor: WidgetStatePropertyAll(AppColors.SECONDARY),
       ),
       floatingActionButtonTheme: const FloatingActionButtonThemeData(
         backgroundColor: AppColors.PRIMARY_DARK,

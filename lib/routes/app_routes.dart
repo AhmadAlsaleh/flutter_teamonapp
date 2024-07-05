@@ -2,7 +2,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_teamonapp/views/admin/admin_dashboard.dart';
-import 'package:flutter_teamonapp/views/admin/admin_employees.dart';
+import 'package:flutter_teamonapp/views/admin/employees/admin_employees.dart';
 import 'package:flutter_teamonapp/views/admin/admin_notifications.dart';
 import 'package:flutter_teamonapp/views/login_page.dart';
 import 'package:flutter_teamonapp/views/main_page.dart';

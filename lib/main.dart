@@ -8,6 +8,7 @@ import 'package:flutter_teamonapp/core/constants/app_strings.dart';
 import 'package:flutter_teamonapp/core/constants/app_themes.dart';
 import 'package:flutter_teamonapp/routes/app_routes.dart';
 import 'package:flutter_teamonapp/services/firebase/firebase_options.dart';
+import 'package:timezone/data/latest_all.dart' as tz;
 
 final firebaseInitializerProvider = FutureProvider<FirebaseApp>((ref) async {
   return await Firebase.initializeApp(
@@ -41,6 +42,7 @@ Future<void> main() async {
           AndroidFlutterLocalNotificationsPlugin>()
       ?.createNotificationChannel(channel);
 
+  tz.initializeTimeZones();
   runApp(const ProviderScope(child: MyApp()));
 }
 
