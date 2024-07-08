@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_colors.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
+import 'package:flutter_teamonapp/core/extensions/double_ext.dart';
 import 'package:flutter_teamonapp/viewmodels/admin/add_employee_viewmodel.dart';
-import 'package:intl/intl.dart';
 
 class AddEmployeeSummary extends ConsumerWidget {
   const AddEmployeeSummary({super.key});
@@ -53,9 +53,7 @@ class AddEmployeeSummary extends ConsumerWidget {
               const Divider(),
               const SizedBox(height: AppDimens.MAIN_SPACE),
               Text("Salary", style: Theme.of(context).textTheme.bodySmall),
-              Text(
-                  NumberFormat.simpleCurrency(name: "€")
-                      .format(userData?.salary),
+              Text("${userData?.salary?.toEuro()}",
                   style: Theme.of(context).textTheme.bodyLarge),
               const SizedBox(height: AppDimens.MAIN_SPACE),
               Text("Daily Work Hours",

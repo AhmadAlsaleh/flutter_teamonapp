@@ -43,4 +43,20 @@ class AdminWorkSessionNotifier
       state = AsyncValue.error(e, s);
     }
   }
+
+  Future<List<WorkSessionModel>?> getUserWorkSessions(
+      int userId, DateTimeRange range) async {
+    try {
+      var authModel = authModelAsync.valueOrNull;
+
+      var sessions = await _apiService.getAdminWorkSessions(
+        token: authModel?.token,
+        dateRange: range,
+      );
+
+      return sessions.where((s) => s.userId == userId).toList();
+    } catch (e) {
+      return null;
+    }
+  }
 }

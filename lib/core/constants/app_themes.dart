@@ -15,7 +15,7 @@ ThemeData appTheme(BuildContext context) => ThemeData(
               TextStyle(fontSize: 22, color: AppColors.PRIMARY_DARK)),
       textTheme: const TextTheme(
         displayLarge: TextStyle(
-          fontSize: 55.0,
+          fontSize: 50.0,
           fontWeight: FontWeight.normal,
           color: AppColors.SECONDARY,
         ),
@@ -29,7 +29,7 @@ ThemeData appTheme(BuildContext context) => ThemeData(
           fontWeight: FontWeight.normal,
         ),
         titleLarge: TextStyle(
-          fontSize: 33.0,
+          fontSize: 28.0,
           fontWeight: FontWeight.normal,
           color: AppColors.PRIMARY,
         ),

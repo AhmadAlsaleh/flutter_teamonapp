@@ -48,16 +48,17 @@ class LoginPage extends ConsumerWidget {
                         controller: emailController,
                         keyboardType: TextInputType.emailAddress,
                         textInputAction: TextInputAction.next,
-                        decoration: const InputDecoration(hintText: 'Email'),
+                        decoration: const InputDecoration(labelText: 'Email'),
                         validator: (value) =>
                             (!EmailValidator.validate(value ?? ''))
                                 ? 'Please enter a valid email'
                                 : null,
                       ),
-                      const SizedBox(height: AppDimens.MAIN_SPACE),
+                      const SizedBox(height: AppDimens.MAIN_SPACE * 2),
                       TextFormField(
                         controller: passwordController,
-                        decoration: const InputDecoration(hintText: 'Password'),
+                        decoration:
+                            const InputDecoration(labelText: 'Password'),
                         obscureText: true,
                         validator: (value) => value == null || value.isEmpty
                             ? 'Please enter a valid password'

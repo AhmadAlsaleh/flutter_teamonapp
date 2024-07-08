@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter_teamonapp/utils/date_helper.dart';
+
 List<UserModel> usersFromJson(String str) =>
     List<UserModel>.from(json.decode(str).map((x) => UserModel.fromJson(x)));
 
@@ -27,6 +29,14 @@ class UserModel {
     this.breakHours,
     this.workdays,
   });
+
+  double salaryPerMinute(int month, int minutes) {
+    if (salary == null || workHours == null) return 0.0;
+
+    int workingDayPerMonth = DateHelper.calculateWorkingDaysForMonth(month);
+    double perMinutes = salary! / (workingDayPerMonth * workHours! * 60);
+    return minutes * perMinutes;
+  }
 
   factory UserModel.fromJson(Map<String, dynamic> json) {
     return UserModel(

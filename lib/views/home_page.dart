@@ -4,6 +4,7 @@ import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
 import 'package:flutter_teamonapp/viewmodels/work_session_viewmodel.dart';
 import 'package:flutter_teamonapp/widgets/home_buttons.dart';
 import 'package:flutter_teamonapp/widgets/home_date_picker.dart';
+import 'package:flutter_teamonapp/widgets/home_salary_due.dart';
 import 'package:flutter_teamonapp/widgets/home_summary.dart';
 import 'package:flutter_teamonapp/widgets/loading.dart';
 import 'package:flutter_teamonapp/widgets/message.dart';
@@ -21,6 +22,10 @@ class HomePage extends ConsumerWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           const HomeDatePicker(),
+          const Divider(),
+          const SizedBox(height: AppDimens.MAIN_SPACE),
+          const HomeSalaryDue(),
+          const SizedBox(height: AppDimens.MAIN_SPACE * 2),
           const HomeButtons(),
           const SizedBox(height: AppDimens.MAIN_SPACE / 2),
           const HomeSummary(),
