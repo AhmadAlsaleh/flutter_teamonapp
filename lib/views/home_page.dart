@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_teamonapp/core/constants/app_dimens.dart';
+import 'package:flutter_teamonapp/viewmodels/user_viewmodel.dart';
 import 'package:flutter_teamonapp/viewmodels/work_session_viewmodel.dart';
 import 'package:flutter_teamonapp/widgets/home_buttons.dart';
 import 'package:flutter_teamonapp/widgets/home_date_picker.dart';
@@ -16,6 +17,7 @@ class HomePage extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     var sessionsAsync = ref.watch(workSessionViewModelProvider);
+    var userModel = ref.watch(userViewModelProvider);
 
     return SafeArea(
       child: Column(
@@ -24,7 +26,13 @@ class HomePage extends ConsumerWidget {
           const HomeDatePicker(),
           const Divider(),
           const SizedBox(height: AppDimens.MAIN_SPACE),
-          const HomeSalaryDue(),
+          userModel.when(
+              data: (value) {
+                if (value == null) return Container();
+                return HomeSalaryDue(userModel: value);
+              },
+              error: (e, s) => Container(),
+              loading: () => Container()),
           const SizedBox(height: AppDimens.MAIN_SPACE * 2),
           const HomeButtons(),
           const SizedBox(height: AppDimens.MAIN_SPACE / 2),

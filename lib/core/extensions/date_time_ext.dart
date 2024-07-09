@@ -7,6 +7,9 @@ extension DateTimeExtensions on DateTime {
   String getDateWithDay() => DateFormat("EEEE dd MMM. yyyy").format(toLocal());
   String getTime() => DateFormat("hh:mm a").format(toLocal());
   String getDateTime() => DateFormat("yy-MM-dd hh:mm a").format(toLocal());
+  bool isSameDay(DateTime dateTime) =>
+      year == dateTime.year && month == dateTime.month && day == dateTime.day;
+  bool isNotSameDay(DateTime dateTime) => !isSameDay(dateTime);
 }
 
 final weekDays = [

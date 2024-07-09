@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_teamonapp/core/extensions/date_time_ext.dart';
 import 'package:flutter_teamonapp/models/auth_model.dart';
 import 'package:flutter_teamonapp/models/work_session_model.dart';
 import 'package:flutter_teamonapp/services/api_service.dart';
@@ -53,8 +54,10 @@ class AdminWorkSessionNotifier
         token: authModel?.token,
         dateRange: range,
       );
-
-      return sessions.where((s) => s.userId == userId).toList();
+      return sessions
+          .where(
+              (s) => s.userId == userId && s.date.isNotSameDay(DateTime.now()))
+          .toList();
     } catch (e) {
       return null;
     }
